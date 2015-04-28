@@ -3,6 +3,7 @@ package test.reports;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 import org.testng.annotations.Test;
 
@@ -15,13 +16,35 @@ import java.util.List;
  */
 public class ReporterLogTest extends SimpleBaseTest {
 
+  public static class MyTestListener extends TestListenerAdapter {
+    @Override
+    public void onTestSuccess(ITestResult result) {
+      Reporter.log("Log from listener");
+      super.onTestSuccess(result);
+    }
+
+    public List<String> getLog() {
+      return Reporter.getOutput();
+    }
+  }
+
+
   @Test
   public void shouldLogFromListener() {
-    TestNG tng = create(ReporterLogSampleTest.class);
+    TestNG tng = create(ReporterLogSampleTest.class, ReporterLogSampleTest2.class);
+    MyTestListener listener = new MyTestListener();
+    tng.addListener(listener);
+    tng.setParallel("methods");
     tng.run();
+    assertContains("Log from listener", listener.getLog());
+    assertContains("Log from test method from ReporterLogSampleTest", listener.getLog());
+    assertContains("Log from test method from ReporterLogSampleTest2", listener.getLog());
+  }
+
+  private static void assertContains(String expected, List<String> values) {
     boolean success = false;
-    for(String s : ReporterLogSampleTest.output) {
-      if (s.contains("Log from listener")) {
+    for(String s : values) {
+      if (s.contains(expected)) {
         success = true;
         break;
       }
