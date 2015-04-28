@@ -1,6 +1,7 @@
 package test.reports;
 
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.TestNG;
 import org.testng.annotations.Test;
@@ -18,15 +19,27 @@ public class ReporterLogTest extends SimpleBaseTest {
   public void shouldLogFromListener() {
     TestNG tng = create(ReporterLogSampleTest.class);
     tng.run();
-    List<String> output = Reporter.getOutput();
     boolean success = false;
-    for(String s : output) {
+    for(String s : ReporterLogSampleTest.output) {
       if (s.contains("Log from listener")) {
         success = true;
         break;
       }
     }
     Assert.assertTrue(success);
-//    System.out.println(output);
+  }
+
+  @Test
+  public void we_should_be_able_to_get_output_for_specific_results() {
+    String expectedLog1 = "asdfasdf";
+    String expectedLog2 = "ffffzzzzsdf";
+    ITestResult result1 = new org.testng.internal.TestResult();
+    ITestResult result2 = new org.testng.internal.TestResult();
+    Reporter.setCurrentTestResult(result1);
+    Reporter.log(expectedLog1);
+    Reporter.setCurrentTestResult(result2);
+    Reporter.log(expectedLog2);
+    Assert.assertEquals(expectedLog1, Reporter.getOutput(result1).get(0));
+    Assert.assertEquals(expectedLog2, Reporter.getOutput(result2).get(0));
   }
 }
