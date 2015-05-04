@@ -25,6 +25,14 @@
     <developerConnection>scm:git:git@github.com:cbeust/testng.git</developerConnection>
     <url>git@github.com:cbeust/testng.git</url>
   </scm>
+
+  <repositories>
+    <repository>
+      <id>apache-snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots</url>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
     
   <developers>
     <developer>
@@ -280,9 +288,17 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.14.1</version>
+        <version>2.19-SNAPSHOT</version>
         <configuration>
-          <skipTests>true</skipTests>
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+          <properties>
+            <property>
+              <name>listener</name>
+              <value>test.invokedmethodlistener.MyListener</value>
+            </property>
+          </properties>
         </configuration>
       </plugin>
 
