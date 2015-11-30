@@ -7,7 +7,11 @@ import com.beust.kobalt.plugin.packaging.assemble
 import com.beust.kobalt.test
 import java.io.File
 
+import static java.lang.System.*
+
 val VERSION = "6.9.10-SNAPSHOT"
+
+val IS_TEAMCITY = getenv("TEAMCITY_VERSION").isNotBlank()
 
 val p = javaProject {
 
@@ -31,6 +35,19 @@ val p = javaProject {
 
     dependenciesTest {
         compile("org.assertj:assertj-core:2.0.0", "org.testng:testng:6.9.9")
+        if (IS_TEAMCITY) {
+            compile(file("/home/teamcity/agent/plugins/testNGPlugin/testng-runtime.jar"),
+                    file("/home/teamcity/agent/lib/runtime-util.jar"),
+                    file("/home/teamcity/agent/lib/serviceMessages.jar")
+            )
+        }
+    }
+
+    if (IS_TEAMCITY) {
+        testArgs {
+            KFiles.joinDir("src", "test", "resources", "testng.xml"),
+            "-listener jetbrains.buildServer.testng.TestNGLogger"
+        }
     }
 
     test {
