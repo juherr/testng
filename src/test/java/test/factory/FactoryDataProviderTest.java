@@ -6,10 +6,16 @@ import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 import org.testng.TestNGException;
 import org.testng.annotations.Test;
+import org.testng.xml.XmlClass;
+import org.testng.xml.XmlSuite;
+import org.testng.xml.XmlTest;
 
 import test.SimpleBaseTest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class FactoryDataProviderTest extends SimpleBaseTest {
 
@@ -49,5 +55,31 @@ public class FactoryDataProviderTest extends SimpleBaseTest {
 //    System.out.println("Results:" + t1.getN() + " " + t2.getN());
     Assert.assertEquals(t1.getN(), n1);
     Assert.assertEquals(t2.getN(), n2);
+  }
+
+  @Test(description = "GITHUB-892: Order of execution when @Factory at constructor level")
+  public void testGitHub892Xml() {
+    XmlSuite suite = new XmlSuite();
+    XmlTest test = new XmlTest(suite);
+    List<XmlClass> classes = new ArrayList<>();
+    XmlClass dp = new XmlClass();
+    dp.setClass(DPClassGitHub892.class);
+    classes.add(dp);
+    XmlClass sample = new XmlClass();
+    sample.setClass(FactoryDataProviderGitHub892Sample.class);
+    classes.add(sample);
+    test.setClasses(classes);
+    TestNG tng = create(suite);
+    TestListenerAdapter tla = new TestListenerAdapter();
+    tng.addListener(tla);
+    tng.run();
+  }
+
+  @Test(description = "GITHUB-892: Order of execution when @Factory at constructor level")
+  public void testGitHub892CLI() {
+    TestNG tng = create(DPClassGitHub892.class, FactoryDataProviderGitHub892Sample.class);
+    TestListenerAdapter tla = new TestListenerAdapter();
+    tng.addListener(tla);
+    tng.run();
   }
 }
