@@ -1,7 +1,6 @@
 package org.testng;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLClassLoader;
@@ -29,7 +28,6 @@ import org.testng.internal.ClassHelper;
 import org.testng.internal.Configuration;
 import org.testng.internal.DynamicGraph;
 import org.testng.internal.IConfiguration;
-import org.testng.internal.IResultListener2;
 import org.testng.internal.OverrideProcessor;
 import org.testng.internal.SuiteRunnerMap;
 import org.testng.internal.Utils;
@@ -115,8 +113,6 @@ public class TestNG {
   public static final String SHOW_TESTNG_STACK_FRAMES = "testng.show.stack.frames";
   public static final String TEST_CLASSPATH = "testng.test.classpath";
 
-  private static TestNG m_instance;
-
   private static JCommander m_jCommander;
 
   private List<String> m_commandLineMethods;
@@ -139,15 +135,7 @@ public class TestNG {
   private List<ISuiteListener> m_suiteListeners = Lists.newArrayList();
   private Set<IReporter> m_reporters = Sets.newHashSet();
 
-  protected static final int HAS_FAILURE = 1;
-  protected static final int HAS_SKIPPED = 2;
-  protected static final int HAS_FSP = 4;
-  protected static final int HAS_NO_TEST = 8;
-
   public static final Integer DEFAULT_VERBOSE = 1;
-
-  private int m_status;
-  private boolean m_hasTests= false;
 
   // Command line suite parameters
   private int m_threadCount = -1;
@@ -202,18 +190,8 @@ public class TestNG {
   }
 
   private void init(boolean useDefaultListeners) {
-    m_instance = this;
-
     m_useDefaultListeners = useDefaultListeners;
     m_configuration = new Configuration();
-  }
-
-  public int getStatus() {
-    return m_status;
-  }
-
-  private void setStatus(int status) {
-    m_status |= status;
   }
 
   /**
@@ -466,19 +444,6 @@ public class TestNG {
     m_threadCount = threadCount;
   }
 
-  /**
-   * Define whether this run will be run in parallel mode.
-   * @deprecated Use #setParallel(XmlSuite.ParallelMode) instead
-   */
-  @Deprecated
-  public void setParallel(String parallel) {
-    if (parallel == null) {
-      setParallel(XmlSuite.ParallelMode.NONE);
-    } else {
-      setParallel(XmlSuite.ParallelMode.getValidParallel(parallel));
-    }
-  }
-
   public void setParallel(XmlSuite.ParallelMode parallel) {
     m_parallelMode = skipDeprecatedValues(parallel);
   }
@@ -697,21 +662,6 @@ public class TestNG {
     }
   }
 
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later /!\ Caution: IntelliJ is using it. Check with @akozlova before removing it
-  @Deprecated
-  public void addListener(Object listener) {
-    if (! (listener instanceof ITestNGListener))
-    {
-      exitWithError("Listener " + listener
-          + " must be one of ITestListener, ISuiteListener, IReporter, "
-          + " IAnnotationTransformer, IMethodInterceptor or IInvokedMethodListener");
-    }
-    addListener((ITestNGListener) listener);
-  }
-
   public void addListener(ITestNGListener listener) {
     if (listener == null) {
       return;
@@ -751,72 +701,6 @@ public class TestNG {
     }
     if (listener instanceof IAlterSuiteListener) {
       m_alterSuiteListeners.add((IAlterSuiteListener) listener);
-    }
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addListener(IInvokedMethodListener listener) {
-    if (!m_invokedMethodListeners.contains(listener)) {
-      addListener((ITestNGListener) listener);
-    }
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addListener(ISuiteListener listener) {
-    if (!m_suiteListeners.contains(listener)) {
-      addListener((ITestNGListener) listener);
-    }
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addListener(ITestListener listener) {
-    if (!m_testListeners.contains(listener)) {
-      addListener((ITestNGListener) listener);
-    }
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addListener(IClassListener listener) {
-    if (!m_classListeners.contains(listener)) {
-      addListener((ITestNGListener) listener);
-    }
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addListener(IReporter listener) {
-    if (!m_reporters.contains(listener)) {
-      addListener((ITestNGListener) listener);
-    }
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addInvokedMethodListener(IInvokedMethodListener listener) {
-    if (!m_invokedMethodListeners.contains(listener)) {
-      addListener((ITestNGListener) listener);
     }
   }
 
@@ -927,12 +811,14 @@ public class TestNG {
     }
   }
   private void addReporter(Class<? extends IReporter> r) {
-    m_reporters.add(ClassHelper.newInstance(r));
+    addReporter(ClassHelper.newInstance(r));
+  }
+
+  private void addReporter(IReporter r) {
+    m_reporters.add(r);
   }
 
   private void initializeDefaultListeners() {
-    m_testListeners.add(new ExitCodeListener(this));
-
     if (m_useDefaultListeners) {
       addReporter(SuiteHTMLReporter.class);
       addReporter(Main.class);
@@ -972,7 +858,10 @@ public class TestNG {
         }
 
         Object listener = ClassHelper.newInstance(listenerClass);
-        addListener(listener);
+        if (listener instanceof ITestNGListener) {
+          throw new TestNGException("Listener " + listenerName + " is not a TestNG listener");
+        }
+        addListener((ITestNGListener) listener);
       }
 
       //
@@ -1101,14 +990,6 @@ public class TestNG {
     if(null != suiteRunners) {
       generateReports(suiteRunners);
     }
-
-    if(!m_hasTests) {
-      setStatus(HAS_NO_TEST);
-      if (TestRunner.getVerbose() > 1) {
-        System.err.println("[TestNG] No tests found. Nothing was run");
-        usage();
-      }
-    }
   }
 
   /**
@@ -1143,25 +1024,7 @@ public class TestNG {
     }
   }
 
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addAlterSuiteListener(IAlterSuiteListener l) {
-    addListener((ITestNGListener) l);
-  }
-
-  /**
-   * @deprecated Use addListener(ITestNGListener) instead
-   */
-  // TODO remove later
-  @Deprecated
-  public void addExecutionListener(IExecutionListener l) {
-    addListener((ITestNGListener) l);
-  }
-
-  private static void usage() {
+  protected static void usage() {
     if (m_jCommander == null) {
       m_jCommander = new JCommander(new CommandLineArgs());
     }
@@ -1385,24 +1248,13 @@ public class TestNG {
   }
 
   /**
-   * The TestNG entry point for command line execution.
-   *
-   * @param argv the TestNG command line parameters.
-   * @throws FileNotFoundException
-   */
-  public static void main(String[] argv) {
-    TestNG testng = privateMain(argv, null);
-    System.exit(testng.getStatus());
-  }
-
-  /**
    * <B>Note</B>: this method is not part of the public API and is meant for internal usage only.
    */
   public static TestNG privateMain(String[] argv, ITestListener listener) {
     TestNG result = new TestNG();
 
     if (null != listener) {
-      result.addListener((Object)listener);
+      result.addListener((ITestNGListener) listener);
     }
 
     //
@@ -1463,11 +1315,6 @@ public class TestNG {
       setTestNames(Arrays.asList(cla.testNames.split(",")));
     }
 
-//    List<String> testNgXml = (List<String>) cmdLineArgs.get(CommandLineArgs.SUITE_DEF);
-//    if (null != testNgXml) {
-//      setTestSuites(testNgXml);
-//    }
-
     // Note: can't use a Boolean field here because we are allowing a boolean
     // parameter with an arity of 1 ("-usedefaultlisteners false")
     if (cla.useDefaultListeners != null) {
@@ -1485,7 +1332,7 @@ public class TestNG {
       setParallel(cla.parallelMode);
     }
     if (cla.configFailurePolicy != null) {
-      setConfigFailurePolicy(cla.configFailurePolicy);
+      setConfigFailurePolicy(XmlSuite.FailurePolicy.getValidPolicy(cla.configFailurePolicy));
     }
     if (cla.threadCount != null) {
       setThreadCount(cla.threadCount);
@@ -1572,125 +1419,6 @@ public class TestNG {
    }
 
   /**
-   * This method is invoked by Maven's Surefire, only remove it once
-   * Surefire has been modified to no longer call it.
-   */
-  public void setSourcePath(String path) {
-    // nop
-  }
-
-  /**
-   * This method is invoked by Maven's Surefire to configure the runner,
-   * do not remove unless you know for sure that Surefire has been updated
-   * to use the new configure(CommandLineArgs) method.
-   *
-   * @deprecated use new configure(CommandLineArgs) method
-   */
-  @SuppressWarnings({"unchecked"})
-  @Deprecated
-  public void configure(Map cmdLineArgs) {
-    CommandLineArgs result = new CommandLineArgs();
-
-    Integer verbose = (Integer) cmdLineArgs.get(CommandLineArgs.LOG);
-    if (null != verbose) {
-      result.verbose = verbose;
-    }
-    result.outputDirectory = (String) cmdLineArgs.get(CommandLineArgs.OUTPUT_DIRECTORY);
-
-    String testClasses = (String) cmdLineArgs.get(CommandLineArgs.TEST_CLASS);
-    if (null != testClasses) {
-      result.testClass = testClasses;
-    }
-
-    String testNames = (String) cmdLineArgs.get(CommandLineArgs.TEST_NAMES);
-    if (testNames != null) {
-      result.testNames = testNames;
-    }
-
-    String useDefaultListeners = (String) cmdLineArgs.get(CommandLineArgs.USE_DEFAULT_LISTENERS);
-    if (null != useDefaultListeners) {
-      result.useDefaultListeners = useDefaultListeners;
-    }
-
-    result.groups = (String) cmdLineArgs.get(CommandLineArgs.GROUPS);
-    result.excludedGroups = (String) cmdLineArgs.get(CommandLineArgs.EXCLUDED_GROUPS);
-    result.testJar = (String) cmdLineArgs.get(CommandLineArgs.TEST_JAR);
-    result.xmlPathInJar = (String) cmdLineArgs.get(CommandLineArgs.XML_PATH_IN_JAR);
-    result.junit = (Boolean) cmdLineArgs.get(CommandLineArgs.JUNIT);
-    result.mixed = (Boolean) cmdLineArgs.get(CommandLineArgs.MIXED);
-    result.skipFailedInvocationCounts = (Boolean) cmdLineArgs.get(
-        CommandLineArgs.SKIP_FAILED_INVOCATION_COUNTS);
-    String parallelMode = (String) cmdLineArgs.get(CommandLineArgs.PARALLEL);
-    if (parallelMode != null) {
-      result.parallelMode = XmlSuite.ParallelMode.getValidParallel(parallelMode);
-    }
-
-    String threadCount = (String) cmdLineArgs.get(CommandLineArgs.THREAD_COUNT);
-    if (threadCount != null) {
-      result.threadCount = Integer.parseInt(threadCount);
-    }
-
-    // Not supported by Surefire yet
-    Integer dptc = (Integer) cmdLineArgs.get(CommandLineArgs.DATA_PROVIDER_THREAD_COUNT);
-    if (dptc != null) {
-      result.dataProviderThreadCount = dptc;
-    }
-    String defaultSuiteName = (String) cmdLineArgs.get(CommandLineArgs.SUITE_NAME);
-    if (defaultSuiteName != null) {
-      result.suiteName = defaultSuiteName;
-    }
-
-    String defaultTestName = (String) cmdLineArgs.get(CommandLineArgs.TEST_NAME);
-    if (defaultTestName != null) {
-      result.testName = defaultTestName;
-    }
-
-    Object listeners = cmdLineArgs.get(CommandLineArgs.LISTENER);
-    if (listeners instanceof List) {
-      result.listener = Utils.join((List<?>) listeners, ",");
-    } else {
-      result.listener = (String) listeners;
-    }
-
-    String ms = (String) cmdLineArgs.get(CommandLineArgs.METHOD_SELECTORS);
-    if (null != ms) {
-      result.methodSelectors = ms;
-    }
-
-    String objectFactory = (String) cmdLineArgs.get(CommandLineArgs.OBJECT_FACTORY);
-    if(null != objectFactory) {
-      result.objectFactory = objectFactory;
-    }
-
-    String runnerFactory = (String) cmdLineArgs.get(CommandLineArgs.TEST_RUNNER_FACTORY);
-    if (null != runnerFactory) {
-      result.testRunnerFactory = runnerFactory;
-    }
-
-    String reporterConfigs = (String) cmdLineArgs.get(CommandLineArgs.REPORTER);
-    if (reporterConfigs != null) {
-      result.reporter = reporterConfigs;
-    }
-
-    String failurePolicy = (String)cmdLineArgs.get(CommandLineArgs.CONFIG_FAILURE_POLICY);
-    if (failurePolicy != null) {
-      result.configFailurePolicy = failurePolicy;
-    }
-
-    Object  suiteThreadPoolSize = cmdLineArgs.get(CommandLineArgs.SUITE_THREAD_POOL_SIZE);
-    if (null != suiteThreadPoolSize) {
-        if (suiteThreadPoolSize instanceof String){
-            result.suiteThreadPoolSize=Integer.parseInt((String) suiteThreadPoolSize);
-        }
-        if (suiteThreadPoolSize instanceof Integer){
-            result.suiteThreadPoolSize=(Integer) suiteThreadPoolSize;
-        }
-    }
-
-    configure(result);
-  }
-
-  /**
    * Only run the specified tests from the suite.
    */
   public void setTestNames(List<String> testNames) {
@@ -1702,12 +1430,11 @@ public class TestNG {
   }
 
   private void addReporter(ReporterConfig reporterConfig) {
-    Object instance = reporterConfig.newReporterInstance();
-    if (instance != null) {
-      addListener(instance);
-    } else {
-      LOGGER.warn("Could not find reporte class : " + reporterConfig.getClassName());
+    IReporter instance = reporterConfig.newReporterInstance();
+    if (instance == null) {
+      LOGGER.warn("Could not find reporter class : " + reporterConfig.getClassName());
     }
+    addReporter(instance);
   }
 
   /**
@@ -1727,25 +1454,6 @@ public class TestNG {
           return;
       }
     m_isMixed = isMixed;
-  }
-
-  /**
-   * @deprecated The TestNG version is now established at load time. This
-   * method is not required anymore and is now a no-op.
-   */
-  @Deprecated
-  public static void setTestNGVersion() {
-    LOGGER.info("setTestNGVersion has been deprecated.");
-  }
-
-  /**
-   * Returns true if this is the JDK 1.4 JAR version of TestNG, false otherwise.
-   *
-   * @return true if this is the JDK 1.4 JAR version of TestNG, false otherwise.
-   */
-  @Deprecated
-  public static boolean isJdk14() {
-    return false;
   }
 
   /**
@@ -1779,27 +1487,6 @@ public class TestNG {
      throw new ParameterException(CommandLineArgs.MIXED + " can't be combined with "
          + CommandLineArgs.JUNIT);
     }
-  }
-
-  /**
-   * @return true if at least one test failed.
-   */
-  public boolean hasFailure() {
-    return (getStatus() & HAS_FAILURE) == HAS_FAILURE;
-  }
-
-  /**
-   * @return true if at least one test failed within success percentage.
-   */
-  public boolean hasFailureWithinSuccessPercentage() {
-    return (getStatus() & HAS_FSP) == HAS_FSP;
-  }
-
-  /**
-   * @return true if at least one test was skipped.
-   */
-  public boolean hasSkip() {
-    return (getStatus() & HAS_SKIPPED) == HAS_SKIPPED;
   }
 
   static void exitWithError(String msg) {
@@ -1868,134 +1555,11 @@ public class TestNG {
   }
 
   /**
-   * @deprecated Use {@link #setConfigFailurePolicy(org.testng.xml.XmlSuite.FailurePolicy)} instead
-   */
-  @Deprecated
-  public void setConfigFailurePolicy(String failurePolicy) {
-    setConfigFailurePolicy(XmlSuite.FailurePolicy.getValidPolicy(failurePolicy));
-  }
-
-  /**
    * Returns the configuration failure policy.
    * @return config failure policy
    */
   public XmlSuite.FailurePolicy getConfigFailurePolicy() {
     return m_configFailurePolicy;
-  }
-
-  // DEPRECATED: to be removed after a major version change
-  /**
-   * @deprecated since 5.1
-   */
-  @Deprecated
-  public static TestNG getDefault() {
-    return m_instance;
-  }
-
-  /**
-   * @deprecated since 5.1
-   */
-  @Deprecated
-  public void setHasFailure(boolean hasFailure) {
-    m_status |= HAS_FAILURE;
-  }
-
-  /**
-   * @deprecated since 5.1
-   */
-  @Deprecated
-  public void setHasFailureWithinSuccessPercentage(boolean hasFailureWithinSuccessPercentage) {
-    m_status |= HAS_FSP;
-  }
-
-  /**
-   * @deprecated since 5.1
-   */
-  @Deprecated
-  public void setHasSkip(boolean hasSkip) {
-    m_status |= HAS_SKIPPED;
-  }
-
-  public static class ExitCodeListener implements IResultListener2 {
-    private TestNG m_mainRunner;
-
-    public ExitCodeListener() {
-      m_mainRunner = TestNG.m_instance;
-    }
-
-    public ExitCodeListener(TestNG runner) {
-      m_mainRunner = runner;
-    }
-
-    @Override
-    public void beforeConfiguration(ITestResult tr) {
-    }
-
-    @Override
-    public void onTestFailure(ITestResult result) {
-      setHasRunTests();
-      m_mainRunner.setStatus(HAS_FAILURE);
-    }
-
-    @Override
-    public void onTestSkipped(ITestResult result) {
-      setHasRunTests();
-      if ((m_mainRunner.getStatus() & HAS_FAILURE) != 0) {
-        m_mainRunner.setStatus(HAS_SKIPPED);
-      }
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-      setHasRunTests();
-      m_mainRunner.setStatus(HAS_FSP);
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult result) {
-      setHasRunTests();
-    }
-
-    @Override
-    public void onStart(ITestContext context) {
-      setHasRunTests();
-    }
-
-    @Override
-    public void onFinish(ITestContext context) {
-    }
-
-    @Override
-    public void onTestStart(ITestResult result) {
-      setHasRunTests();
-    }
-
-    private void setHasRunTests() {
-      m_mainRunner.m_hasTests= true;
-    }
-
-    /**
-     * @see org.testng.IConfigurationListener#onConfigurationFailure(org.testng.ITestResult)
-     */
-    @Override
-    public void onConfigurationFailure(ITestResult itr) {
-      m_mainRunner.setStatus(HAS_FAILURE);
-    }
-
-    /**
-     * @see org.testng.IConfigurationListener#onConfigurationSkip(org.testng.ITestResult)
-     */
-    @Override
-    public void onConfigurationSkip(ITestResult itr) {
-      m_mainRunner.setStatus(HAS_SKIPPED);
-    }
-
-    /**
-     * @see org.testng.IConfigurationListener#onConfigurationSuccess(org.testng.ITestResult)
-     */
-    @Override
-    public void onConfigurationSuccess(ITestResult itr) {
-    }
   }
 
   private void setConfigurable(IConfigurable c) {

@@ -93,16 +93,19 @@ public class ReporterConfig {
   /**
    * Creates a reporter based on the current configuration
    */
-  public Object newReporterInstance() {
+  public IReporter newReporterInstance() {
     Object result = null;
-    Class reporterClass = ClassHelper.forName(m_className);
+    Class<?> reporterClass = ClassHelper.forName(m_className);
     if (reporterClass != null) {
       result = ClassHelper.newInstance(reporterClass);
+      if (!(result instanceof IReporter)) {
+        throw new TestNGException("Reporter " + m_className + " is not an IReporter");
+      }
       for (ReporterConfig.Property property : m_properties) {
         PropertyUtils.setProperty(result, property.getName(), property.getValue());
       }
     }
-    return result;
+    return (IReporter) result;
   }
 
   public static class Property {

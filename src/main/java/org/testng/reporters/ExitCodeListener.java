@@ -9,8 +9,9 @@ import org.testng.TestNG;
  * @author <a href='mailto:the_mindstorm[at]evolva[dot]ro'>Alexandru Popescu</a>
  */
 public class ExitCodeListener extends TestNG.ExitCodeListener {
+
   public ExitCodeListener() {
-    super();
+    super(TestNG.getDefault());
   }
 
   public ExitCodeListener(TestNG runner) {
