@@ -109,12 +109,6 @@ class TestClass extends NoOpTestClass implements ITestClass {
     return m_iClass.getInstanceHashCodes();
   }
 
-  @Deprecated
-  @Override
-  public int getInstanceCount() {
-    return m_iClass.getInstanceCount();
-  }
-
   @Override
   public void addInstance(Object instance) {
     m_iClass.addInstance(instance);

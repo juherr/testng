@@ -62,7 +62,7 @@ public class CommandLineArgs {
 
   public static final String CONFIG_FAILURE_POLICY = "-configfailurepolicy";
   @Parameter(names = CONFIG_FAILURE_POLICY , description = "Configuration failure policy (skip or continue)")
-  public String configFailurePolicy;
+  public XmlSuite.FailurePolicy configFailurePolicy;
 
   public static final String THREAD_COUNT = "-threadcount";
   @Parameter(names = THREAD_COUNT, description = "Number of threads to use when running tests " +

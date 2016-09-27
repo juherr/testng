@@ -237,18 +237,6 @@ public class XmlSuite implements Serializable, Cloneable {
   }
 
   /**
-   * @deprecated Use #setParallel(XmlSuite.ParallelMode) instead
-   */
-  @Deprecated
-  public void setParallel(String parallel) {
-    if (parallel == null) {
-      setParallel((ParallelMode)null);
-    } else {
-      setParallel(XmlSuite.ParallelMode.getValidParallel(parallel));
-    }
-  }
-
-  /**
    * Sets the parallel mode
    * @param parallel the parallel mode
    */
@@ -1010,14 +998,6 @@ public class XmlSuite implements Serializable, Cloneable {
       result = o2.equals(o1) || (def.equals(o2) && o1 == null);
     }
     return result;
-  }
-
-  /**
-   * @deprecated Use {@link #setPreserveOrder(Boolean)} instead
-   */
-  @Deprecated
-  public void setPreserveOrder(String f) {
-    setPreserveOrder(Boolean.valueOf(f));
   }
 
   public void setPreserveOrder(Boolean f) {

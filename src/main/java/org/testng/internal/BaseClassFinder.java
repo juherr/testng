@@ -49,11 +49,6 @@ public abstract class BaseClassFinder implements ITestClassFinder {
     return result;
   }
 
-  @Deprecated
-  protected Map getExistingClasses() {
-    return m_classes;
-  }
-
   protected boolean classExists(Class<?> cls) {
     return m_classes.containsKey(cls);
   }

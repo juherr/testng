@@ -81,28 +81,6 @@ public class ConfigurationMethod extends BaseTestMethod {
 
   }
 
-  /**
-   * @deprecated use #ConfigurationMethod(ConstructorOrMethod,...) instead.
-   */
-  @Deprecated
-  public ConfigurationMethod(Method method,
-                             IAnnotationFinder annotationFinder,
-                             boolean isBeforeSuite,
-                             boolean isAfterSuite,
-                             boolean isBeforeTest,
-                             boolean isAfterTest,
-                             boolean isBeforeClass,
-                             boolean isAfterClass,
-                             boolean isBeforeMethod,
-                             boolean isAfterMethod,
-                             String[] beforeGroups,
-                             String[] afterGroups,
-                             Object instance)
-  {
-    this(new ConstructorOrMethod(method), annotationFinder, isBeforeSuite, isAfterSuite, isBeforeTest, isAfterTest,
-        isBeforeClass, isAfterClass, isBeforeMethod, isAfterMethod, beforeGroups, afterGroups, instance);
-  }
-
   public ConfigurationMethod(ConstructorOrMethod com,
                              IAnnotationFinder annotationFinder,
                              boolean isBeforeSuite,

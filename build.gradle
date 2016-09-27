@@ -4,8 +4,10 @@ buildscript {
     def a_password = hasProperty('artifactory_password') ? artifactory_password : System.getenv('artifactory_password')
 
     repositories {
-        mavenCentral()
         jcenter()
+        maven {
+            url "https://maven.eveoh.nl/content/repositories/releases"
+        }
         maven {
             url 'http://dl.bintray.com/cbeust/maven'
         }
@@ -21,6 +23,7 @@ buildscript {
     dependencies {
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
         classpath 'org.hibernate.build.gradle:version-injection-plugin:1.0.0'
+        classpath "nl.eveoh:gradle-aspectj:1.6"
     }
 }
 
@@ -30,6 +33,10 @@ plugins {
     id "org.sonarqube" version "2.0.1"
     id "nebula.optional-base" version "3.1.0"
     id "nebula.provided-base" version "3.1.0"
+}
+
+project.ext {
+    aspectjVersion = '1.8.9'
 }
 
 task wrapper(type: Wrapper) {
@@ -44,6 +51,7 @@ apply plugin: 'groovy'
 apply plugin: 'jacoco'
 apply plugin: 'osgi'
 apply plugin: 'version-injection'
+apply plugin: 'aspectj'
 
 targetCompatibility = "1.7"
 sourceCompatibility = "1.7"
@@ -87,17 +95,17 @@ jar {
         instruction 'Bundle-License', 'http://apache.org/licenses/LICENSE-2.0'
         instruction 'Bundle-Description', 'TestNG is a testing framework.'
         instruction 'Import-Package',
-            'bsh.*;version="[2.0.0,3.0.0)";resolution:=optional',
-            'com.beust.jcommander.*;version="[1.7.0,3.0.0)";resolution:=optional',
-            'com.google.inject.*;version="[1.2,1.3)";resolution:=optional',
-            'junit.framework;version="[3.8.1, 5.0.0)";resolution:=optional',
-            'org.junit.*;resolution:=optional',
-            'org.apache.tools.ant.*;version="[1.7.0, 2.0.0)";resolution:=optional',
-            'org.yaml.*;version="[1.6,2.0)";resolution:=optional',
-            '!com.beust.testng',
-            '!org.testng.*',
-            '!com.sun.*',
-            '*'
+                'bsh.*;version="[2.0.0,3.0.0)";resolution:=optional',
+                'com.beust.jcommander.*;version="[1.7.0,3.0.0)";resolution:=optional',
+                'com.google.inject.*;version="[1.2,1.3)";resolution:=optional',
+                'junit.framework;version="[3.8.1, 5.0.0)";resolution:=optional',
+                'org.junit.*;resolution:=optional',
+                'org.apache.tools.ant.*;version="[1.7.0, 2.0.0)";resolution:=optional',
+                'org.yaml.*;version="[1.6,2.0)";resolution:=optional',
+                '!com.beust.testng',
+                '!org.testng.*',
+                '!com.sun.*',
+                '*'
     }
 }
 

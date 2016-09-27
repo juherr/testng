@@ -1436,24 +1436,9 @@ public class TestRunner
     m_verbose = n;
   }
 
-  private void log(String s) {
-    Utils.log("TestRunner", 2, s);
-  }
-
   /////
   // Listeners
   //
-  /**
-   * @deprecated addListener(ITestNGListener) should be used instead
-   */
-  // TODO remove it
-  @Deprecated
-  public void addListener(Object listener) {
-    if (listener instanceof ITestNGListener) {
-      addListener((ITestNGListener) listener);
-    }
-  }
-
   public void addListener(ITestNGListener listener) {
     // TODO a listener may be added many times if it implements many interfaces
     if (listener instanceof IMethodInterceptor) {
@@ -1461,7 +1446,7 @@ public class TestRunner
     }
     if (listener instanceof ITestListener) {
       // At this point, the field m_testListeners has already been used in the creation
-      addTestListener((ITestListener) listener);
+      addListener(listener);
     }
     if (listener instanceof IClassListener) {
       IClassListener classListener = (IClassListener) listener;
@@ -1484,15 +1469,6 @@ public class TestRunner
       m_configuration.addExecutionListener(iel);
     }
     m_suite.addListener(listener);
-  }
-
-  /**
-   * @deprecated addListener(ITestNGListener) should be used instead
-   */
-  // TODO change public to package visibility
-  @Deprecated
-  public void addTestListener(ITestListener il) {
-    m_testListeners.add(il);
   }
 
   void addConfigurationListener(IConfigurationListener icl) {
@@ -1557,11 +1533,6 @@ public class TestRunner
     public void onConfigurationSuccess(ITestResult itr) {
       m_passedConfigurations.addResult(itr, itr.getMethod());
     }
-  }
-
-  @Deprecated
-  public void setMethodInterceptor(IMethodInterceptor methodInterceptor){
-    m_methodInterceptors.add(methodInterceptor);
   }
 
   public void addMethodInterceptor(IMethodInterceptor methodInterceptor){

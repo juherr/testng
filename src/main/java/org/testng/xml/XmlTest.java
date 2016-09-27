@@ -141,16 +141,6 @@ public class XmlTest implements Serializable, Cloneable {
   }
 
   /**
-   * Sets the XML Classes.
-   * @param classes The classes to set.
-   * @deprecated use setXmlClasses
-   */
-  @Deprecated
-  public void setClassNames(List<XmlClass> classes) {
-    m_xmlClasses = classes;
-  }
-
-  /**
    * @return Returns the classes.
    */
   public List<XmlClass> getXmlClasses() {
@@ -370,24 +360,6 @@ public class XmlTest implements Serializable, Cloneable {
    */
   public Map<String, String> getLocalParameters() {
     return m_parameters;
-  }
-
-  /**
-   * @deprecated Use {@code getLocalParameters()} or {@code getAllParameters()}
-   */
-  @Deprecated
-  public Map<String, String> getParameters() {
-    return getAllParameters();
-  }
-
-  /**
-   * @deprecated Use {@code getLocalParameters()} instead
-   *
-   * @return the parameters defined on this <test> tag only
-   */
-  @Deprecated
-  public Map<String, String> getTestParameters() {
-    return getLocalParameters();
   }
 
   public void setParallel(XmlSuite.ParallelMode parallel) {
@@ -695,14 +667,6 @@ public class XmlTest implements Serializable, Cloneable {
     } else {
       return result;
     }
-  }
-
-  /**
-   * @deprecated Use {@link #setPreserveOrder(Boolean)} instead
-   */
-  @Deprecated
-  public void setPreserveOrder(String preserveOrder) {
-    setPreserveOrder(Boolean.valueOf(preserveOrder));
   }
 
   public void setPreserveOrder(Boolean preserveOrder) {

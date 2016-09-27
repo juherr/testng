@@ -30,7 +30,7 @@ import java.util.Set;
  * @author <a href="mailto:cedric@beust.com">Cedric Beust</a>
  * @author <a href='mailto:the_mindstorm[at]evolva[dot]ro'>Alexandru Popescu</a>
  */
-public class FailedReporter extends TestListenerAdapter implements IReporter {
+public class FailedReporter implements IReporter {
   public static final String TESTNG_FAILED_XML = "testng-failed.xml";
 
   private XmlSuite m_xmlSuite;
@@ -78,25 +78,6 @@ public class FailedReporter extends TestListenerAdapter implements IReporter {
       Utils.writeUtf8File(outputDir, TESTNG_FAILED_XML, failedSuite.toXml());
       Utils.writeUtf8File(suite.getOutputDirectory(), TESTNG_FAILED_XML, failedSuite.toXml());
     }
-  }
-
-  /**
-   * Do not rely on this method. The class is used as <code>IReporter</code>.
-   *
-   * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)
-   * @deprecated this class is used now as IReporter
-   */
-  @Deprecated
-  @Override
-  public void onFinish(ITestContext context) {
-    // Delete the previous file
-//    File f = new File(context.getOutputDirectory(), getFileName(context));
-//    f.delete();
-
-    // Calculate the methods we need to rerun :  failed tests and
-    // their dependents
-//    List<ITestResult> failedTests = getFailedTests();
-//    List<ITestResult> skippedTests = getSkippedTests();
   }
 
   private void generateXmlTest(ISuite suite,
@@ -252,17 +233,5 @@ public class FailedReporter extends TestListenerAdapter implements IReporter {
       }
       
       return Collections.emptyMap();
-  }
-  
-  /**
-   * TODO:  we might want to make that more flexible in the future, but for
-   * now, hardcode the file name
-   */
-  private String getFileName(ITestContext context) {
-    return TESTNG_FAILED_XML;
-  }
-
-  private static void ppp(String s) {
-    System.out.println("[FailedReporter] " + s);
   }
 }
