@@ -1189,8 +1189,8 @@ public class TestNG {
    * until an alternative mechanism is found.
    */
   public List<ISuite> runSuitesLocally() {
-    SuiteRunnerMap suiteRunnerMap = new SuiteRunnerMap();
-    if (m_suites.size() > 0) {
+    SuiteRunnerMap<ISuite> suiteRunnerMap = new SuiteRunnerMap<>();
+    if (!m_suites.isEmpty()) {
       if (m_suites.get(0).getVerbose() >= 2) {
         Version.displayBanner();
       }
@@ -1219,7 +1219,7 @@ public class TestNG {
           populateSuiteGraph(suiteGraph, suiteRunnerMap, xmlSuite);
         }
 
-        IThreadWorkerFactory<ISuite> factory = new SuiteWorkerFactory(suiteRunnerMap,
+        IThreadWorkerFactory<ISuite> factory = new SuiteWorkerFactory<>(suiteRunnerMap,
           0 /* verbose hasn't been set yet */, getDefaultSuiteName());
         GraphThreadPoolExecutor<ISuite> pooledExecutor =
                 new GraphThreadPoolExecutor<>(suiteGraph, factory, m_suiteThreadPoolSize,
@@ -1276,11 +1276,11 @@ public class TestNG {
    * @param defaultSuiteName default suite name
    */
   private void runSuitesSequentially(XmlSuite xmlSuite,
-      SuiteRunnerMap suiteRunnerMap, int verbose, String defaultSuiteName) {
+      SuiteRunnerMap<ISuite> suiteRunnerMap, int verbose, String defaultSuiteName) {
     for (XmlSuite childSuite : xmlSuite.getChildSuites()) {
       runSuitesSequentially(childSuite, suiteRunnerMap, verbose, defaultSuiteName);
     }
-    SuiteRunnerWorker srw = new SuiteRunnerWorker(suiteRunnerMap.get(xmlSuite), suiteRunnerMap,
+    SuiteRunnerWorker<ISuite> srw = new SuiteRunnerWorker<>(suiteRunnerMap.get(xmlSuite), suiteRunnerMap,
       verbose, defaultSuiteName);
     srw.run();
   }
@@ -1295,7 +1295,7 @@ public class TestNG {
    * @param xmlSuite XML Suite
    */
   private void populateSuiteGraph(DynamicGraph<ISuite> suiteGraph /* OUT */,
-      SuiteRunnerMap suiteRunnerMap, XmlSuite xmlSuite) {
+      SuiteRunnerMap<ISuite> suiteRunnerMap, XmlSuite xmlSuite) {
     ISuite parentSuiteRunner = suiteRunnerMap.get(xmlSuite);
     if (xmlSuite.getChildSuites().isEmpty()) {
       suiteGraph.addNode(parentSuiteRunner);
@@ -1315,7 +1315,7 @@ public class TestNG {
    *   SuiteRunner as value. This is updated as part of this method call
    * @param xmlSuite Xml Suite (and its children) for which {@code SuiteRunner}s are created
    */
-  private void createSuiteRunners(SuiteRunnerMap suiteRunnerMap /* OUT */, XmlSuite xmlSuite) {
+  private void createSuiteRunners(SuiteRunnerMap<ISuite> suiteRunnerMap /* OUT */, XmlSuite xmlSuite) {
     if (null != m_isJUnit && ! m_isJUnit.equals(XmlSuite.DEFAULT_JUNIT)) {
       xmlSuite.setJUnit(m_isJUnit);
     }

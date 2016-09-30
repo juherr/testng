@@ -12,19 +12,19 @@ import java.util.List;
 /**
  * An {@code IWorker} that is used to encapsulate and run Suite Runners
  */
-public class SuiteRunnerWorker implements IWorker<ISuite> {
+public class SuiteRunnerWorker<S extends ISuite> implements IWorker<S> {
 
-  private final SuiteRunner m_suiteRunner;
+  private final S m_suiteRunner;
   private final int m_verbose;
   private final String m_defaultSuiteName;
-  private final SuiteRunnerMap m_suiteRunnerMap;
+  private final SuiteRunnerMap<S> m_suiteRunnerMap;
 
-  public SuiteRunnerWorker(ISuite suiteRunner,
-      SuiteRunnerMap suiteRunnerMap,
+  public SuiteRunnerWorker(S suiteRunner,
+      SuiteRunnerMap<S> suiteRunnerMap,
       int verbose,
       String defaultSuiteName) {
     m_suiteRunnerMap = suiteRunnerMap;
-    m_suiteRunner = (SuiteRunner) suiteRunner;
+    m_suiteRunner = suiteRunner;
     m_verbose = verbose;
     m_defaultSuiteName = defaultSuiteName;
   }
@@ -45,12 +45,11 @@ public class SuiteRunnerWorker implements IWorker<ISuite> {
       Utils.log("TestNG", 0, allFiles);
     }
 
-    SuiteRunner suiteRunner = (SuiteRunner) m_suiteRunnerMap.get(xmlSuite);
-    suiteRunner.run();
+    m_suiteRunnerMap.get(xmlSuite).run();
   }
 
   @Override
-  public int compareTo(IWorker<ISuite> arg0) {
+  public int compareTo(IWorker<S> arg0) {
     /*
      * Dummy Implementation
      *
@@ -61,8 +60,8 @@ public class SuiteRunnerWorker implements IWorker<ISuite> {
   }
 
   @Override
-  public List<ISuite> getTasks() {
-    return Collections.<ISuite>singletonList(m_suiteRunner);
+  public List<S> getTasks() {
+    return Collections.<S>singletonList(m_suiteRunner);
   }
 
   @Override

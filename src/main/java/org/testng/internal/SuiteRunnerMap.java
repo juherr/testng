@@ -8,11 +8,11 @@ import org.testng.xml.XmlSuite;
 import java.util.Collection;
 import java.util.Map;
 
-public class SuiteRunnerMap {
+public class SuiteRunnerMap<S extends ISuite> {
 
-  private Map<String, ISuite> m_map = Maps.newHashMap();
+  private final Map<String, S> m_map = Maps.newHashMap();
 
-  public void put(XmlSuite xmlSuite, ISuite suite) {
+  public void put(XmlSuite xmlSuite, S suite) {
     final String name = xmlSuite.getName();
     if (m_map.containsKey(name)) {
       throw new TestNGException("SuiteRunnerMap already have runner for suite " + name);
@@ -20,11 +20,11 @@ public class SuiteRunnerMap {
     m_map.put(name, suite);
   }
 
-  public ISuite get(XmlSuite xmlSuite) {
+  public S get(XmlSuite xmlSuite) {
     return m_map.get(xmlSuite.getName());
   }
 
-  public Collection<ISuite> values() {
+  public Collection<S> values() {
     return m_map.values();
   }
 }

@@ -9,18 +9,15 @@ import java.util.List;
 
 /**
  * An {@code IThreadWorkerFactory} for {@code SuiteRunner}s
- *
- * @author nullin
- *
  */
-public class SuiteWorkerFactory implements IThreadWorkerFactory<ISuite>
-{
-  private Integer m_verbose;
-  private String m_defaultSuiteName;
-  private SuiteRunnerMap m_suiteRunnerMap;
+public class SuiteWorkerFactory<S extends ISuite> implements IThreadWorkerFactory<S> {
 
-  public SuiteWorkerFactory(SuiteRunnerMap suiteRunnerMap,
-      Integer verbose, String defaultSuiteName) {
+  private final int m_verbose;
+  private final String m_defaultSuiteName;
+  private final SuiteRunnerMap<S> m_suiteRunnerMap;
+
+  public SuiteWorkerFactory(SuiteRunnerMap<S> suiteRunnerMap,
+      int verbose, String defaultSuiteName) {
     m_suiteRunnerMap = suiteRunnerMap;
     m_verbose = verbose;
     m_defaultSuiteName = defaultSuiteName;
@@ -32,15 +29,13 @@ public class SuiteWorkerFactory implements IThreadWorkerFactory<ISuite>
    * @return list of suite runner workers
    */
   @Override
-  public List<IWorker<ISuite>> createWorkers(List<ISuite> suites)
-  {
-    List<IWorker<ISuite>> suiteWorkers = Lists.newArrayList();
-    for (ISuite suiteRunner : suites) {
-      SuiteRunnerWorker worker = new SuiteRunnerWorker(suiteRunner, m_suiteRunnerMap,
+  public List<IWorker<S>> createWorkers(List<S> suites) {
+    List<IWorker<S>> suiteWorkers = Lists.newArrayList();
+    for (S suiteRunner : suites) {
+      IWorker<S> worker = new SuiteRunnerWorker<>(suiteRunner, m_suiteRunnerMap,
         m_verbose, m_defaultSuiteName);
       suiteWorkers.add(worker);
     }
     return suiteWorkers;
   }
-
 }
