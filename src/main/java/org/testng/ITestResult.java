@@ -73,7 +73,10 @@ public interface ITestResult extends IAttributes, Comparable<ITestResult> {
   /**
    * @return The host where this suite was run, or null if it was run locally.  The
    * returned string has the form:  host:port
+   *
+   * @deprecated Not used, always null
    */
+  @Deprecated
   String getHost();
 
   /**

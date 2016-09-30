@@ -89,8 +89,11 @@ public interface ITestContext extends IAttributes {
   /**
    * @return The host where this test was run, or null if it was run locally.  The
    * returned string has the form:  host:port
+   *
+   * @deprecated Not used, always null
    */
-  public String getHost();
+  @Deprecated
+  String getHost();
 
   /**
    * @return All the methods that were not included in this test run.

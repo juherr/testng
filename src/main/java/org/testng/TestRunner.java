@@ -136,9 +136,6 @@ public class TestRunner
 
   private RunInfo m_runInfo= new RunInfo();
 
-  // The host where this test was run, or null if run locally
-  private String m_host;
-
   // Defined dynamically depending on <test preserve-order="true/false">
   transient private List<IMethodInterceptor> m_methodInterceptors;
 
@@ -186,7 +183,6 @@ public class TestRunner
     m_xmlTest= test;
     m_suite = suite;
     m_testName = test.getName();
-    m_host = suite.getHost();
     m_testClassesFromXml= test.getXmlClasses();
     m_skipFailedInvocationCounts = skipFailedInvocationCounts;
     setVerbose(test.getVerbose());
@@ -1292,7 +1288,7 @@ public class TestRunner
 
   @Override
   public String getHost() {
-    return m_host;
+    return null;
   }
 
   @Override

@@ -87,8 +87,11 @@ public interface ISuite extends IAttributes {
   /**
    * @return The host where this suite was run, or null if it was run locally.  The
    * returned string has the form:  host:port
+   *
+   * @deprecated Not used, always null
    */
-  public String getHost();
+  @Deprecated
+  String getHost();
 
   /**
    * Retrieves the shared state for a suite.
