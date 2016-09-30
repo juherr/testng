@@ -944,8 +944,9 @@ public class TestNG {
         addReporter(EmailableReporter2.class);
       }
       addReporter(JUnitReportReporter.class);
+      addListener((ITestNGListener) new StatisticSuiteListener());
       if (m_verbose != null && m_verbose > 4) {
-        addListener(new VerboseReporter("[TestNG] "));
+        addListener((ITestNGListener) new VerboseReporter("[TestNG] "));
       }
     }
   }
