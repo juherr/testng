@@ -6,19 +6,15 @@ import org.testng.xml.XmlSuite;
 /**
  * This class logs the result of an entire Test Suite (defined by a
  * property file).
- *
- * @author Cedric Beust, May 10, 2004
- *
  */
 class SuiteResult implements ISuiteResult, Comparable {
 	/* generated */
 	private static final long serialVersionUID = 6778513869858860756L;
-  //FIXME: Is m_propertyFileName needed?
-	private String m_propertyFileName =  null;
-  private XmlSuite m_suite = null;
-  private ITestContext m_testContext = null;
 
-  protected SuiteResult(XmlSuite suite, ITestContext tr) {
+  private final XmlSuite m_suite;
+  private final ITestContext m_testContext;
+
+  SuiteResult(XmlSuite suite, ITestContext tr) {
     m_suite = suite;
     m_testContext = tr;
   }
@@ -28,7 +24,7 @@ class SuiteResult implements ISuiteResult, Comparable {
    */
   @Override
   public String getPropertyFileName() {
-    return m_propertyFileName;
+    return null;
   }
 
   /**

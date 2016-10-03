@@ -1,6 +1,5 @@
 package test;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +16,7 @@ import java.util.regex.Pattern;
 import org.testng.Assert;
 import org.testng.IClassListener;
 import org.testng.IInvokedMethodListener;
+import org.testng.IMethodInterceptor;
 import org.testng.ISuite;
 import org.testng.ITestResult;
 import org.testng.ITestRunnerFactory;
@@ -38,12 +38,10 @@ import org.testng.xml.XmlTest;
 
 /**
  * Base class for tests
- *
- * @author Cedric Beust, May 5, 2004
- *
  */
 public class BaseTest extends BaseDistributedTest {
-  private static final String m_outputDirectory= "test-output-tests";
+
+  private static final File m_outputDirectory = new File("test-output-tests");
 
   private XmlSuite m_suite= null;
   private ITestRunnerFactory m_testRunnerFactory;
@@ -92,7 +90,6 @@ public class BaseTest extends BaseDistributedTest {
   private Map<Long, Map> m_passedTests= new HashMap<>();
   private Map<Long, Map> m_failedTests= new HashMap<>();
   private Map<Long, Map> m_skippedTests= new HashMap<>();
-  private Map<Long, XmlTest> m_testConfigs= new HashMap<>();
   private Map<Long, Map> m_passedConfigs= new HashMap<>();
   private Map<Long, Map> m_failedConfigs= new HashMap<>();
   private Map<Long, Map> m_skippedConfigs= new HashMap<>();
@@ -185,7 +182,11 @@ public class BaseTest extends BaseDistributedTest {
 
     m_suite.setVerbose(m_verbose != null ? m_verbose : 0);
     SuiteRunner suite = new SuiteRunner(m_configuration,
-        m_suite, m_outputDirectory, m_testRunnerFactory);
+        m_suite, m_outputDirectory, m_testRunnerFactory, false,
+        new ArrayList<IMethodInterceptor>() /* method interceptor */,
+        null /* invoked method listeners */,
+        null /* test listeners */,
+        null /* class listeners */){};
 
     suite.run();
   }
@@ -449,9 +450,6 @@ public class BaseTest extends BaseDistributedTest {
       m_baseTest= baseTest;
     }
 
-    /**
-     * @see org.testng.ITestRunnerFactory#newTestRunner(org.testng.ISuite, org.testng.xml.XmlTest)
-     */
     @Override
     public TestRunner newTestRunner(ISuite suite, XmlTest test,
         Collection<IInvokedMethodListener> listeners, List<IClassListener> classListeners) {

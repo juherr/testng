@@ -109,7 +109,7 @@ public class TestNG {
   public static final String DEFAULT_COMMAND_LINE_TEST_NAME = "Command line test";
 
   /** The default name of the result's output directory (keep public, used by Eclipse). */
-  public static final String DEFAULT_OUTPUTDIR = "test-output";
+  public static final File DEFAULT_OUTPUTDIR = new File("test-output");
 
   /** System properties */
   public static final String SHOW_TESTNG_STACK_FRAMES = "testng.show.stack.frames";
@@ -122,7 +122,7 @@ public class TestNG {
   private List<String> m_commandLineMethods;
   protected List<XmlSuite> m_suites = Lists.newArrayList();
   private List<XmlSuite> m_cmdlineSuites;
-  private String m_outputDir = DEFAULT_OUTPUTDIR;
+  private File m_outputDir = DEFAULT_OUTPUTDIR;
 
   private String[] m_includedGroups;
   private String[] m_excludedGroups;
@@ -220,10 +220,14 @@ public class TestNG {
    * Sets the output directory where the reports will be created.
    * @param outputdir The directory.
    */
-  public void setOutputDirectory(final String outputdir) {
+  public void setOutputDirectory(String outputdir) {
     if (isStringNotEmpty(outputdir)) {
-      m_outputDir = outputdir;
+      setOutputDirectory(new File(outputdir));
     }
+  }
+
+  public void setOutputDirectory(File outputdir) {
+    m_outputDir = outputdir;
   }
 
   /**
@@ -726,7 +730,7 @@ public class TestNG {
       m_classListeners.add((IClassListener) listener);
     }
     if (listener instanceof IReporter) {
-      m_reporters.add((IReporter) listener);
+      addReporter((IReporter) listener);
     }
     if (listener instanceof IAnnotationTransformer) {
       setAnnotationTransformer((IAnnotationTransformer) listener);
@@ -926,8 +930,13 @@ public class TestNG {
       }
     }
   }
+
   private void addReporter(Class<? extends IReporter> r) {
-    m_reporters.add(ClassHelper.newInstance(r));
+    addReporter(ClassHelper.newInstance(r));
+  }
+
+  private void addReporter(IReporter r) {
+    m_reporters.add(r);
   }
 
   private void initializeDefaultListeners() {
@@ -1173,7 +1182,7 @@ public class TestNG {
     for (IReporter reporter : m_reporters) {
       try {
         long start = System.currentTimeMillis();
-        reporter.generateReport(m_suites, suiteRunners, m_outputDir);
+        reporter.generateReport(m_suites, suiteRunners, m_outputDir.getAbsolutePath());
         Utils.log("TestNG", 2, "Time taken by " + reporter + ": "
             + (System.currentTimeMillis() - start) + " ms");
       }
@@ -1371,8 +1380,9 @@ public class TestNG {
     }
 
     for (IReporter r : result.getReporters()) {
-      addListener(r);
+      addReporter(r);
     }
+    result.setReportResults(!m_reporters.isEmpty());
 
     for (IConfigurationListener cl : m_configuration.getConfigurationListeners()) {
       result.addConfigurationListener(cl);
@@ -1810,7 +1820,7 @@ public class TestNG {
   }
 
   public String getOutputDirectory() {
-    return m_outputDir;
+    return m_outputDir.getAbsolutePath();
   }
 
   public IAnnotationTransformer getAnnotationTransformer() {
