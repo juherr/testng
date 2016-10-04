@@ -147,6 +147,7 @@
       <class name="test.listeners.ConfigurationListenerTest" />
       <class name="test.multiplelisteners.TestMaker" />
       <class name="test.listeners.github1130.GitHub1130Test"/>
+      <class name="test.listeners.github1173.GitHub1173Test"/>
     </classes>
   </test>
 
