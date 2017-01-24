@@ -31,7 +31,10 @@ matrix:
     - jdk: oraclejdk7
     - jdk: openjdk7
 
+# Skip default "gradlew assemble" issued by Travis in order to run it with Java9 too
+install: true
 script:
+  - ./gradlew assemble
   - ./gradlew check --stacktrace
 after_success:
   - ./travis.sh deploy
