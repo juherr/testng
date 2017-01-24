@@ -30,7 +30,7 @@ matrix:
 # Skip default "gradlew assemble" issued by Travis in order to run it with Java9 too
 install: true
 script:
-  - ./gradlew assemble
+  - ./gradlew assemble --stacktrace
   - ./gradlew check --stacktrace
 after_success:
   - ./travis.sh deploy
