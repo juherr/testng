@@ -10,7 +10,6 @@
 TESTNG-*
 build
 eclipse-build
-gradle.properties
 ivy*
 javadocs
 kobaltBuild
