@@ -27,7 +27,9 @@ matrix:
         apt:
           packages:
             - oracle-java9-installer
-      env: JDK=9
+      env:
+        - JDK=9
+        - GRADLE_OPTS=-Xmx512m --add-opens java.base/java.lang=ALL-UNNAMED
     - jdk: oraclejdk7
     - jdk: openjdk7
 
