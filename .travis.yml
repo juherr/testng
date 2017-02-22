@@ -3,7 +3,7 @@ language: java
 
 env:
   global:
-    - GRADLE_OPTS=-Xmx512m
+    - GRADLE_OPTS="-Xmx512m -XX:+IgnoreUnrecognizedVMOptions"
 
 before_script:
   - if [[ "x$JDK" == *'x9'* ]]; then remove_dir_from_path $JAVA_HOME/bin; export JAVA_HOME=/usr/lib/jvm/java-9-oracle; export PATH=$JAVA_HOME/bin:$PATH; java -Xmx32m -version; fi
@@ -29,7 +29,7 @@ matrix:
             - oracle-java9-installer
       env:
         - JDK=9
-        - GRADLE_OPTS="-Xmx512m --add-opens java.base/java.lang=ALL-UNNAMED"
+        - GRADLE_OPTS="-Xmx512m -XX:+IgnoreUnrecognizedVMOptions --add-opens java.base/java.lang=ALL-UNNAMED"
     - jdk: oraclejdk7
     - jdk: openjdk7
 
