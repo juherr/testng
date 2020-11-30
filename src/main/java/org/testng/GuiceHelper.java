@@ -35,7 +35,7 @@ public class GuiceHelper {
     Guice guice =
         AnnotationHelper.findAnnotationSuperClasses(Guice.class, iClass.getRealClass());
     if (guice == null) {
-      return null;
+      throw new IllegalArgumentException("IClass has no @Guice annotation");
     }
     if (iClass instanceof TestClass) {
       iClass = ((TestClass) iClass).getIClass();
@@ -155,5 +155,9 @@ public class GuiceHelper {
     public static List<Module> getSpiModules() {
       return spiModules;
     }
+  }
+
+  public static boolean hasNoGuiceAnnotations(IClass iClass) {
+    return AnnotationHelper.findAnnotationSuperClasses(Guice.class, iClass.getRealClass()) == null;
   }
 }

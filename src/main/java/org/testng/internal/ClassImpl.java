@@ -97,34 +97,24 @@ public class ClassImpl implements IClass {
 
   private Object getDefaultInstance(boolean create, String errMsgPrefix) {
     if (m_defaultInstance == null) {
-      if (m_instance != null) {
-        m_defaultInstance = m_instance;
-      } else {
-        Object instance = getInstanceFromGuice();
-
-        if (instance != null) {
-          m_defaultInstance = instance;
+        if (m_instance == null) {
+          m_defaultInstance = m_testContext.getInstance(this, m_class, () ->
+                  InstanceCreator.createInstance(
+                          m_class,
+                          m_classes,
+                          m_testContext.getCurrentXmlTest(),
+                          m_annotationFinder,
+                          m_objectFactory,
+                          create,
+                          errMsgPrefix
+                  )
+          );
         } else {
-          m_defaultInstance =
-              InstanceCreator.createInstance(
-                  m_class,
-                  m_classes,
-                  m_testContext.getCurrentXmlTest(),
-                  m_annotationFinder,
-                  m_objectFactory,
-                  create, errMsgPrefix);
+          m_defaultInstance = m_instance;
         }
-      }
     }
 
     return m_defaultInstance;
-  }
-
-  /** @return an instance from Guice if @Test(guiceModule) attribute was found, null otherwise */
-  private Object getInstanceFromGuice() {
-    Injector injector = m_testContext.getInjector(this);
-    if (injector == null) return null;
-    return injector.getInstance(m_class);
   }
 
   public Injector getParentInjector(IInjectorFactory injectorFactory) {

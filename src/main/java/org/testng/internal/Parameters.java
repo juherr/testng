@@ -643,12 +643,7 @@ public class Parameters {
       if (null != dp && name.equals(getDataProviderName(dp, m))) {
         Object instanceToUse;
         if (shouldBeStatic && (m.getModifiers() & Modifier.STATIC) == 0) {
-          Injector injector = context.getInjector(clazz);
-          if (injector != null) {
-            instanceToUse = injector.getInstance(dataProviderClass);
-          } else {
-            instanceToUse = InstanceCreator.newInstance(dataProviderClass);
-          }
+          instanceToUse = context.getInstance(clazz, dataProviderClass, () -> InstanceCreator.newInstance(dataProviderClass));
         } else {
           instanceToUse = instance;
         }

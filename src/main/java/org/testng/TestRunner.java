@@ -1287,9 +1287,6 @@ public class TestRunner
 
   @Override
   public Injector getInjector(IClass iClass) {
-    if (hasNoGuiceAnnotations(iClass)) {
-      return null;
-    }
     if (guiceHelper == null) {
       guiceHelper = new GuiceHelper(this);
     }
@@ -1300,9 +1297,4 @@ public class TestRunner
   public void addInjector(List<Module> moduleInstances, Injector injector) {
     m_injectors.put(moduleInstances, injector);
   }
-
-  private static boolean hasNoGuiceAnnotations(IClass iClass) {
-    return AnnotationHelper.findAnnotationSuperClasses(Guice.class, iClass.getRealClass()) == null;
-  }
-
 }

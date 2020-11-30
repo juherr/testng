@@ -5,6 +5,7 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 import org.testng.internal.ClassImpl;
+import org.testng.internal.annotations.AnnotationHelper;
 import org.testng.internal.paramhandler.FakeTestContext;
 
 import com.google.inject.Injector;
@@ -20,7 +21,9 @@ public final class GuiceHelperTest {
 
     @Test(description = "GITHUB-2273")
     public void getInjector_spiModule_injectorHasModule() {
-        MockInjector injector = (MockInjector) guiceHelper.getInjector(new MockClass(), new MockInjectorFactory());
+        MockClass clazz = new MockClass();
+        Guice guice = AnnotationHelper.findAnnotationSuperClasses(Guice.class, clazz.getRealClass());
+        MockInjector injector = (MockInjector) guiceHelper.getInjector(guice, clazz, new MockInjectorFactory());
 
         assertNotNull(injector);
         Module[] modules = injector.getModules();
