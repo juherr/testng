@@ -1,27 +1,17 @@
 package org.testng;
 
-import com.google.inject.Injector;
-import com.google.inject.Module;
-
-import java.util.Collections;
-
-import org.testng.annotations.Guice;
-import org.testng.internal.annotations.AnnotationHelper;
+import org.testng.internal.IGuiceTestContext;
 import org.testng.xml.XmlTest;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * This class defines a test context which contains all the information for a given test run. An
  * instance of this context is passed to the test listeners so they can query information about
  * their environment.
- *
- * @author Cedric Beust, Aug 6, 2004
  */
-public interface ITestContext extends IAttributes {
+public interface ITestContext extends IAttributes, IGuiceTestContext {
 
   /** @return The name of this test. */
   String getName();
@@ -85,34 +75,4 @@ public interface ITestContext extends IAttributes {
 
   /** @return the current XmlTest. */
   XmlTest getCurrentXmlTest();
-
-  @Deprecated
-  List<Module> getGuiceModules(Class<? extends Module> cls);
-
-  @Deprecated
-  default void addGuiceModule(Module module) {}
-
-  @Deprecated
-  default List<Module> getAllGuiceModules() {
-    return Collections.emptyList();
-  }
-
-  @Deprecated
-  Injector getInjector(List<Module> moduleInstances);
-
-  @Deprecated
-  Injector getInjector(IClass iClass);
-
-  default <T> T getInstance(IClass iClass, Class<? extends T> targetClass, Supplier<T> fallback) {
-    Guice guice = AnnotationHelper.findAnnotationSuperClasses(Guice.class, iClass.getRealClass());
-    if (guice == null) {
-      return fallback.get();
-    } else {
-      Injector injector = getInjector(iClass);
-      return injector.getInstance(targetClass);
-    }
-  }
-
-  @Deprecated
-  void addInjector(List<Module> moduleInstances, Injector injector);
 }
