@@ -1,11 +1,12 @@
 package test.factory;
 
 import java.util.List;
-import org.testng.Assert;
 import org.testng.TestNG;
 import org.testng.annotations.Test;
 import org.testng.collections.Lists;
 import test.SimpleBaseTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FactoryInterleavingTest extends SimpleBaseTest {
 
@@ -26,10 +27,9 @@ public class FactoryInterleavingTest extends SimpleBaseTest {
       10, 11, 12, 13,
     };
     Integer[] logArray = LOG.toArray(new Integer[0]);
-    if (!logArray.equals(valid1)) {
-      Assert.assertEquals(logArray, valid1);
-    } else if (!logArray.equals(valid2)) {
-      Assert.assertEquals(logArray, valid2);
-    }
+    assertThat(logArray).satisfiesAnyOf(
+        it -> assertThat(it).isEqualTo(valid1),
+        it -> assertThat(it).isEqualTo(valid2)
+    );
   }
 }

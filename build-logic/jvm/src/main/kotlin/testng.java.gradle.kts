@@ -6,6 +6,7 @@ plugins {
     id("testng.versioning")
     id("testng.style")
     id("testng.repositories")
+    id("testng.errorprone")
     // Improves Gradle Test logging
     // See https://github.com/vlsi/vlsi-release-plugins/tree/master/plugins/gradle-extensions-plugin
     id("com.github.vlsi.gradle-extensions")

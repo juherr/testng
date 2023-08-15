@@ -15,6 +15,7 @@ import java.util.Set;
 import org.testng.annotations.Test;
 
 /** Tests different equality cases for nested collections and arrays. */
+@SuppressWarnings("ArraysAsListPrimitiveArray")
 public class ArrayEqualityAssertTest {
 
   @Test
