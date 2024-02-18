@@ -13,7 +13,7 @@ import org.testng.IModuleFactory;
 @Target(TYPE)
 @Documented
 public @interface Guice {
-  /** @return the list of modules to query when trying to create an instance of this test class. */
+  /** Returns the list of modules to query when trying to create an instance of this test class. */
   Class<? extends Module>[] modules() default {};
 
   Class<? extends IModuleFactory> moduleFactory() default IModuleFactory.class;

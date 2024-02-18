@@ -69,24 +69,24 @@ public class TestListenerAdapter implements IResultListener2 {
     m_testContexts.add(testContext);
   }
 
-  /** @return Returns the failedButWithinSuccessPercentageTests. */
+  /** Returns the failedButWithinSuccessPercentageTests. */
   public List<ITestResult> getFailedButWithinSuccessPercentageTests() {
     return new ArrayList<>(m_failedButWSPerTests);
   }
-  /** @return Returns the failedTests. */
+  /** Returns the failedTests. */
   public List<ITestResult> getFailedTests() {
     return new ArrayList<>(m_failedTests);
   }
-  /** @return Returns the passedTests. */
+  /** Returns the passedTests. */
   public List<ITestResult> getPassedTests() {
     return new ArrayList<>(m_passedTests);
   }
-  /** @return Returns the skippedTests. */
+  /** Returns the skippedTests. */
   public List<ITestResult> getSkippedTests() {
     return new ArrayList<>(m_skippedTests);
   }
 
-  /** @return Returns the tests that failed due to a timeout */
+  /** Returns the tests that failed due to a timeout */
   public Collection<ITestResult> getTimedoutTests() {
     return new ArrayList<>(m_timedOutTests);
   }

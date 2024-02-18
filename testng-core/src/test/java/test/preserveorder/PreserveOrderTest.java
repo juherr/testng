@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import org.testng.Assert;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
@@ -46,7 +47,7 @@ public class PreserveOrderTest extends SimpleBaseTest {
     for (Class<?> testClass : tests) {
       for (int i = 1; i <= 3; i++) {
         String methodName = methods.next();
-        Assert.assertEquals(methodName, testClass.getSimpleName().toLowerCase() + i);
+        Assert.assertEquals(methodName, testClass.getSimpleName().toLowerCase(Locale.getDefault()) + i);
       }
     }
   }

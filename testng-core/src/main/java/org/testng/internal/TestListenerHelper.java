@@ -126,7 +126,7 @@ public final class TestListenerHelper {
   }
 
   /**
-   * @return all the @Listeners annotations found in the current class and its superclasses and
+   * Returns all the @Listeners annotations found in the current class and its superclasses and
    *     inherited interfaces.
    */
   @SuppressWarnings("unchecked")

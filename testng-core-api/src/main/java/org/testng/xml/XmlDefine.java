@@ -3,6 +3,8 @@ package org.testng.xml;
 import static org.testng.collections.CollectionUtils.hasElements;
 
 import java.util.List;
+import java.util.Objects;
+
 import org.testng.collections.Lists;
 import org.testng.reporters.XMLStringBuffer;
 
@@ -49,15 +51,12 @@ public class XmlDefine {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof XmlDefine)) {
       return false;
     }
 
     XmlDefine define = (XmlDefine) o;
-    if (m_name != null ? !m_name.equals(define.m_name) : define.m_name != null) {
-      return false;
-    }
-    return m_includes != null ? m_includes.equals(define.m_includes) : define.m_includes == null;
+    return Objects.equals(m_name, define.m_name) && Objects.equals(m_includes, define.m_includes);
   }
 
   @Override

@@ -173,7 +173,7 @@ public class TestMethodWorker implements IWorker<ITestNGMethod> {
         listener.onBeforeClass(testClass);
       }
       ConfigMethodArguments attributes =
-          new Builder()
+          new ConfigMethodArguments.Builder()
               .forTestClass(testClass)
               .usingConfigMethodsAs(
                   ((ITestClassConfigInfo) testClass).getInstanceBeforeClassMethods(instance))
@@ -223,7 +223,7 @@ public class TestMethodWorker implements IWorker<ITestNGMethod> {
   private void invokeAfterClassConfigurations(ITestClass testClass, List<Object> invokeInstances) {
     for (Object invokeInstance : invokeInstances) {
       ConfigMethodArguments attributes =
-          new Builder()
+          new ConfigMethodArguments.Builder()
               .forTestClass(testClass)
               .usingConfigMethodsAs(testClass.getAfterClassMethods())
               .forSuite(m_testContext.getSuite().getXmlSuite())

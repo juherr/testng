@@ -17,7 +17,7 @@ public interface IAnnotationFinder {
    * @param cls - The corresponding class.
    * @param annotationClass - The class on which annotation is to be looked for.
    * @param <A> The expected {@link IAnnotation} type
-   * @return The annotation on the class or null if none found.
+   * Returns the annotation on the class or null if none found.
    */
   <A extends IAnnotation> A findAnnotation(Class<?> cls, Class<A> annotationClass);
 
@@ -25,7 +25,7 @@ public interface IAnnotationFinder {
    * @param m - The corresponding {@link Method}
    * @param annotationClass - The class on which annotation is to be looked for.
    * @param <A> The expected {@link IAnnotation} type
-   * @return The annotation on the method. If not found, return the annotation on the declaring
+   * Returns the annotation on the method. If not found, return the annotation on the declaring
    *     class. If not found, return null.
    */
   <A extends IAnnotation> A findAnnotation(Method m, Class<A> annotationClass);
@@ -41,7 +41,7 @@ public interface IAnnotationFinder {
    * @param cons - The corresponding {@link Constructor}
    * @param annotationClass - The class on which annotation is to be looked for.
    * @param <A> The expected {@link IAnnotation} type
-   * @return The annotation on the method. If not found, return the annotation on the declaring
+   * Returns the annotation on the method. If not found, return the annotation on the declaring
    *     class. If not found, return null.
    */
   <A extends IAnnotation> A findAnnotation(Constructor<?> cons, Class<A> annotationClass);
@@ -50,7 +50,7 @@ public interface IAnnotationFinder {
    * @param cls - The corresponding class.
    * @param annotationClass - The class on which annotation is to be looked for.
    * @param <A> - The expected {@link IAnnotation} type
-   * @return The annotations on the inherited interfaces. If not found, return the annotations on
+   * Returns the annotations on the inherited interfaces. If not found, return the annotations on
    *     the declaring interface. If not found, return an empty list.
    */
   <A extends IAnnotation> List<A> findInheritedAnnotations(Class<?> cls, Class<A> annotationClass);
@@ -58,20 +58,20 @@ public interface IAnnotationFinder {
   /**
    * @param method The <code>Method</code>
    * @param i The parameter index
-   * @return true if the ith parameter of the given method has the annotation @TestInstance.
+   * Returns true if the ith parameter of the given method has the annotation @TestInstance.
    */
   boolean hasTestInstance(Method method, int i);
 
   /**
    * @param method The <code>Method</code>
-   * @return the @Optional values of this method's parameters (<code>null</code> if the parameter
+   * Returns the @Optional values of this method's parameters (<code>null</code> if the parameter
    *     isn't optional)
    */
   String[] findOptionalValues(Method method);
 
   /**
    * @param ctor The <code>Constructor</code>
-   * @return the @Optional values of this method's parameters (<code>null</code> if the parameter
+   * Returns the @Optional values of this method's parameters (<code>null</code> if the parameter
    *     isn't optional)
    */
   String[] findOptionalValues(Constructor<?> ctor);

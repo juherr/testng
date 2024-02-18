@@ -64,7 +64,7 @@ public class ConstructorOrMethod {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof ConstructorOrMethod)) {
       return false;
     }
     ConstructorOrMethod that = (ConstructorOrMethod) o;

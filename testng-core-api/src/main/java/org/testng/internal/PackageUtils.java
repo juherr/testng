@@ -9,6 +9,7 @@ import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -94,8 +95,8 @@ public class PackageUtils {
 
     for (int i = 0; i < classpathFragments.length; i++) {
       String path;
-      if (classpathFragments[i].toLowerCase().endsWith(".jar")
-          || classpathFragments[i].toLowerCase().endsWith(".zip")) {
+      if (classpathFragments[i].toLowerCase(Locale.getDefault()).endsWith(".jar")
+          || classpathFragments[i].toLowerCase(Locale.getDefault()).endsWith(".zip")) {
         path = classpathFragments[i] + "!/";
       } else {
         if (classpathFragments[i].endsWith(File.separator)) {

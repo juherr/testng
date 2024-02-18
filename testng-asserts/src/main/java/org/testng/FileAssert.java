@@ -61,10 +61,7 @@ public class FileAssert {
     }
   }
 
-  /**
-   * @param tstvalue The actual file
-   * @see #assertFile(File, String)
-   */
+  /** @param tstvalue The actual file See {@link #assertFile(File, String)} */
   public static void assertFile(File tstvalue) {
     assertFile(tstvalue, null);
   }
@@ -95,8 +92,7 @@ public class FileAssert {
 
   /**
    * @param tstvalue The actual file
-   * @param expected The expected length
-   * @see #assertLength(File, long, String)
+   * @param expected The expected length See {@link #assertLength(File, long, String)}
    */
   public static void assertLength(File tstvalue, long expected) {
     assertLength(tstvalue, expected, null);
@@ -126,8 +122,7 @@ public class FileAssert {
 
   /**
    * @param tstvalue The actual file
-   * @param expected The expected min length
-   * @see #assertMinLength(File, long, String)
+   * @param expected The expected min length See {@link #assertMinLength(File, long, String)}
    */
   public static void assertMinLength(File tstvalue, long expected) {
     assertMinLength(tstvalue, expected, null);
@@ -157,8 +152,7 @@ public class FileAssert {
 
   /**
    * @param tstvalue The actual file
-   * @param expected The expected length
-   * @see #assertMaxLength(File, long, String)
+   * @param expected The expected length See {@link #assertMaxLength(File, long, String)}
    */
   public static void assertMaxLength(File tstvalue, long expected) {
     assertMaxLength(tstvalue, expected, null);
@@ -183,10 +177,7 @@ public class FileAssert {
     }
   }
 
-  /**
-   * @param tstvalue The actual file
-   * @see #assertReadable(File, String)
-   */
+  /** @param tstvalue The actual file See {@link #assertReadable(File, String)} */
   public static void assertReadable(File tstvalue) {
     assertReadable(tstvalue, null);
   }
@@ -210,10 +201,7 @@ public class FileAssert {
     }
   }
 
-  /**
-   * @param tstvalue The actual file
-   * @see #assertWriteable(File, String)
-   */
+  /** @param tstvalue The actual file See {@link #assertWriteable(File, String)} */
   public static void assertWriteable(File tstvalue) {
     assertReadable(tstvalue, null);
   }
@@ -237,10 +225,7 @@ public class FileAssert {
     }
   }
 
-  /**
-   * @param tstvalue The actual file
-   * @see #assertReadWrite(File, String)
-   */
+  /** @param tstvalue The actual file See {@link #assertReadWrite(File, String)} */
   public static void assertReadWrite(File tstvalue) {
     assertReadWrite(tstvalue, null);
   }

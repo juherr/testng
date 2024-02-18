@@ -90,11 +90,7 @@ public class XmlTest implements Cloneable {
     m_methodSelectors = Lists.newArrayList(methodSelectors);
   }
 
-  /**
-   * Returns the suite this test is part of.
-   *
-   * @return the suite this test is part of.
-   */
+  /** Returns the suite this test is part of. */
   public final XmlSuite getSuite() {
     if (m_suite == null) {
       throw new IllegalStateException(
@@ -103,7 +99,7 @@ public class XmlTest implements Cloneable {
     return m_suite;
   }
 
-  /** @return the includedGroups. */
+  /** Returns the includedGroups. */
   public List<String> getIncludedGroups() {
     List<String> result = Lists.newArrayList();
     if (m_xmlGroups != null && m_xmlGroups.getRun() != null) {
@@ -117,7 +113,7 @@ public class XmlTest implements Cloneable {
     return getIncludedGroups().isEmpty() && getExcludedGroups().isEmpty();
   }
 
-  /** @return Returns the classes. */
+  /** Returns the classes. */
   public List<XmlClass> getXmlClasses() {
     return m_xmlClasses;
   }
@@ -141,7 +137,7 @@ public class XmlTest implements Cloneable {
     m_xmlClasses = classes;
   }
 
-  /** @return Returns the name. */
+  /** Returns the name. */
   public String getName() {
     return m_name;
   }
@@ -215,7 +211,7 @@ public class XmlTest implements Cloneable {
     m_xmlGroups.getRun().getExcludes().add(g);
   }
 
-  /** @return Returns the verbose. */
+  /** Returns the verbose. */
   public int getVerbose() {
     Integer result = m_verbose;
     if (null == result || XmlSuite.DEFAULT_VERBOSE.equals(m_verbose)) {
@@ -242,7 +238,7 @@ public class XmlTest implements Cloneable {
     m_skipFailedInvocationCounts = skip;
   }
 
-  /** @return Returns the isJUnit. */
+  /** Returns the isJUnit. */
   public boolean skipFailedInvocationCounts() {
     Boolean result = m_skipFailedInvocationCounts;
     if (null == result) {
@@ -273,7 +269,7 @@ public class XmlTest implements Cloneable {
     }
   }
 
-  /** @return Returns the metaGroups. */
+  /** Returns the metaGroups. */
   public Map<String, List<String>> getMetaGroups() {
     if (m_xmlGroups == null) {
       return Collections.emptyMap();
@@ -304,7 +300,7 @@ public class XmlTest implements Cloneable {
     return result;
   }
 
-  /** @return the parameters defined in this test tag and the tags above it. */
+  /** The parameters defined in this test tag and the tags above it. */
   public Map<String, String> getAllParameters() {
     Map<String, String> result = Maps.newHashMap();
     result.putAll(getSuite().getParameters());
@@ -313,8 +309,8 @@ public class XmlTest implements Cloneable {
   }
 
   /**
-   * @return the parameters defined in this tag, and only this test tag. To retrieve the inherited
-   *     parameters as well, call {@code getAllParameters()}.
+   * The parameters defined in this tag, and only this test tag. To retrieve the inherited
+   * parameters as well, call {@code getAllParameters()}.
    */
   public Map<String, String> getLocalParameters() {
     return m_parameters;
@@ -384,7 +380,7 @@ public class XmlTest implements Cloneable {
    *
    * <p>The &lt;classes&gt; sub element is ignored for the moment.
    *
-   * @return a clone of the current XmlTest
+   * <p>Returns a clone of the current XmlTest
    */
   @Override
   public Object clone() {
@@ -413,8 +409,7 @@ public class XmlTest implements Cloneable {
   /**
    * Convenience method to cache the ordering numbers for methods.
    *
-   * @param method The method name
-   * @return The invocation numbers of the method
+   * @param method The method name Returns the invocation numbers of the method
    */
   public List<Integer> getInvocationNumbers(String method) {
     if (m_failedInvocationNumbers == null) {
@@ -463,7 +458,7 @@ public class XmlTest implements Cloneable {
    * represents the order in which this test tag was found in its &lt;suite&gt; tag. It's used to
    * calculate the ordering of the tests when preserve-test-order is true.
    *
-   * @return The value
+   * <p>Returns the value
    */
   public int getIndex() {
     return m_index;
@@ -524,7 +519,7 @@ public class XmlTest implements Cloneable {
         return false;
       }
       if ((m_xmlGroups.getRun() == null && other.m_xmlGroups != null)
-          || m_xmlGroups.getRun() != null && other.m_xmlGroups == null) {
+          || (m_xmlGroups.getRun() != null && other.m_xmlGroups == null)) {
         return false;
       }
       if (!m_xmlGroups.getRun().getExcludes().equals(other.m_xmlGroups.getRun().getExcludes())) {
@@ -620,8 +615,8 @@ public class XmlTest implements Cloneable {
   }
 
   /**
-   * @param names The list of names to check.
-   * @return <code>true</code> if the current test's name matches with any of the given names.
+   * @param names The list of names to check. Returns <code>true</code> if the current test's name
+   *     matches with any of the given names.
    */
   public boolean nameMatchesAny(List<String> names) {
     return names.contains(getName());

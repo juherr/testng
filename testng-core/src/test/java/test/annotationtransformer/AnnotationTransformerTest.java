@@ -3,6 +3,7 @@ package test.annotationtransformer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -243,7 +244,7 @@ public class AnnotationTransformerTest extends SimpleBaseTest {
             + "  </test>"
             + "</suite>";
 
-    ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes());
+    ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes(Charset.defaultCharset()));
     Collection<XmlSuite> suites = new Parser(is).parse();
 
     TestNG tng = create();

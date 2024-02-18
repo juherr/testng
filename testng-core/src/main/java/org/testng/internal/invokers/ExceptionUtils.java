@@ -44,7 +44,7 @@ final class ExceptionUtils {
   private static Throwable getConfigFailureException(ITestContext context) {
     for (IInvokedMethod method : context.getSuite().getAllInvokedMethods()) {
       ITestNGMethod m = method.getTestMethod();
-      if (m.isBeforeSuiteConfiguration() && (!method.getTestResult().isSuccess())) {
+      if (m.isBeforeSuiteConfiguration() && !method.getTestResult().isSuccess()) {
         return method.getTestResult().getThrowable();
       }
     }

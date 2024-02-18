@@ -453,9 +453,8 @@ public class EmailableReporter2 implements IReporter {
 
     // Write test parameters (if any)
     Object[] parameters = result.getParameters();
-    boolean hasRows = dumpParametersInfo("Factory Parameter", result.getFactoryParameters());
     int parameterCount = (parameters == null ? 0 : parameters.length);
-    hasRows = dumpParametersInfo("Parameter", result.getParameters());
+    boolean hasRows = dumpParametersInfo("Parameter", result.getParameters());
     dumpAttributesInfo(result.getMethod().getAttributes());
 
     // Write reporter messages (if any)
@@ -546,7 +545,7 @@ public class EmailableReporter2 implements IReporter {
     int i = 1;
     for (CustomAttribute attribute : attributes) {
       writer.print("<tr>");
-      writer.print("<td>" + String.format("%02d.", (i++)) + "</td>");
+      writer.print("<td>" + String.format("%02d.", i++) + "</td>");
       writer.print("<td>" + attribute.name() + "</td>");
       writer.print("<td>" + Utils.escapeHtml(Arrays.toString(attribute.values())) + "</td>");
       writer.print("</tr>");
@@ -650,7 +649,7 @@ public class EmailableReporter2 implements IReporter {
       return suiteName;
     }
 
-    /** @return the test results (possibly empty) */
+    /** Returns the test results (possibly empty) */
     public List<TestResult> getTestResults() {
       return testResults;
     }
@@ -788,22 +787,22 @@ public class EmailableReporter2 implements IReporter {
       return testName;
     }
 
-    /** @return the results for failed configurations (possibly empty) */
+    /** Returns the results for failed configurations (possibly empty) */
     public List<ClassResult> getFailedConfigurationResults() {
       return failedConfigurationResults;
     }
 
-    /** @return the results for failed tests (possibly empty) */
+    /** Returns the results for failed tests (possibly empty) */
     public List<ClassResult> getFailedTestResults() {
       return failedTestResults;
     }
 
-    /** @return the results for skipped configurations (possibly empty) */
+    /** Returns the results for skipped configurations (possibly empty) */
     public List<ClassResult> getSkippedConfigurationResults() {
       return skippedConfigurationResults;
     }
 
-    /** @return the results for skipped tests (possibly empty) */
+    /** Returns the results for skipped tests (possibly empty) */
     public List<ClassResult> getSkippedTestResults() {
       return skippedTestResults;
     }
@@ -812,7 +811,7 @@ public class EmailableReporter2 implements IReporter {
       return retriedTestResults;
     }
 
-    /** @return the results for passed tests (possibly empty) */
+    /** Returns the results for passed tests (possibly empty) */
     public List<ClassResult> getPassedTestResults() {
       return passedTestResults;
     }
@@ -883,7 +882,7 @@ public class EmailableReporter2 implements IReporter {
       return className;
     }
 
-    /** @return the non-null, non-empty {@link MethodResult} list */
+    /** Returns the non-null, non-empty {@link MethodResult} list */
     public List<MethodResult> getMethodResults() {
       return methodResults;
     }
@@ -898,7 +897,7 @@ public class EmailableReporter2 implements IReporter {
       this.results = results;
     }
 
-    /** @return the non-null, non-empty result list */
+    /** Returns the non-null, non-empty result list */
     public List<ITestResult> getResults() {
       return results;
     }

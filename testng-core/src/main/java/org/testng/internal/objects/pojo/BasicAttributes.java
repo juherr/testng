@@ -13,12 +13,12 @@ public class BasicAttributes {
     this.clazz = clazz;
   }
 
-  /** @return - The actual {@link Class} */
+  /** Returns the actual {@link Class} */
   public Class<?> getRawClass() {
     return clazz;
   }
 
-  /** @return - The wrapped {@link IClass} that represents a TestNG test class. */
+  /** Returns the wrapped {@link IClass} that represents a TestNG test class. */
   public IClass getTestClass() {
     return iClass;
   }

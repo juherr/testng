@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
 import org.testng.ISuite;
-import org.testng.log4testng.Logger;
 import org.testng.xml.XmlSuite;
 
 /**
@@ -16,7 +15,6 @@ import org.testng.xml.XmlSuite;
  */
 public final class ObjectBag {
 
-  private static final Logger logger = Logger.getLogger(ObjectBag.class);
   private final Map<Class<?>, Object> bag = new ConcurrentHashMap<>();
 
   private static final Map<UUID, ObjectBag> instances = new ConcurrentHashMap<>();
@@ -37,8 +35,8 @@ public final class ObjectBag {
 
   /**
    * @param type - The type of the object to be created
-   * @param supplier - A {@link Supplier} that should be used to produce a new instance
-   * @return - Either the newly produced instance or the existing instance.
+   * @param supplier - A {@link Supplier} that should be used to produce a new instance Returns
+   *     either the newly produced instance or the existing instance.
    */
   public Object createIfRequired(Class<?> type, Supplier<Object> supplier) {
     return bag.computeIfAbsent(type, t -> supplier.get());

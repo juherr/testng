@@ -19,6 +19,6 @@ public interface IHookCallBack {
    */
   void runTestMethod(ITestResult testResult);
 
-  /** @return the parameters that will be used to invoke the test method. */
+  /** Returns the parameters that will be used to invoke the test method. */
   Object[] getParameters();
 }

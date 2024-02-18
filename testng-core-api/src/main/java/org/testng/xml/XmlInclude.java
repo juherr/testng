@@ -105,8 +105,7 @@ public class XmlInclude {
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
-    if (obj == null) return XmlSuite.f();
-    if (getClass() != obj.getClass()) return XmlSuite.f();
+    if (!(obj instanceof XmlInclude)) return false;
     XmlInclude other = (XmlInclude) obj;
     if (m_invocationNumbers == null) {
       if (other.m_invocationNumbers != null) return XmlSuite.f();
@@ -125,14 +124,14 @@ public class XmlInclude {
   }
 
   /**
-   * @return the parameters defined in this test tag, and only this test tag. To retrieve the
+   * Returns the parameters defined in this test tag, and only this test tag. To retrieve the
    *     inherited parameters as well, call {@code getAllParameters()}.
    */
   public Map<String, String> getLocalParameters() {
     return m_parameters;
   }
 
-  /** @return the parameters defined in this tag and the tags above it. */
+  /** Returns the parameters defined in this tag and the tags above it. */
   public Map<String, String> getAllParameters() {
     Map<String, String> result = Maps.newHashMap();
     if (m_xmlClass != null) {

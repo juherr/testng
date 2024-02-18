@@ -21,6 +21,7 @@ public final class TestMethodContainer implements IContainer<ITestNGMethod> {
     this.supplier = supplier;
   }
 
+  @Override
   public ITestNGMethod[] getItems() {
     if (isCleared()) {
       // If the cached data was cleared, no longer try to refer to it, but instead
@@ -39,6 +40,7 @@ public final class TestMethodContainer implements IContainer<ITestNGMethod> {
     return isCleared;
   }
 
+  @Override
   public void clearItems() {
     if (isCleared) {
       return;

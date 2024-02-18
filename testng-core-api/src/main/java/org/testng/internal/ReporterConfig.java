@@ -1,6 +1,7 @@
 package org.testng.internal;
 
 import java.util.List;
+import com.google.common.base.Splitter;
 import org.testng.collections.Lists;
 
 /** Stores the information regarding the configuration of a pluggable report listener. */
@@ -57,10 +58,10 @@ public class ReporterConfig {
     } else {
       className = inputString.substring(0, clsNameEndIndex);
       String propString = inputString.substring(clsNameEndIndex + 1);
-      for (String prop : propString.split(",")) {
-        String[] propNameAndVal = prop.split("=");
-        if (propNameAndVal.length == 2) {
-          properties.add(new Property(propNameAndVal[0], propNameAndVal[1]));
+      for (String prop : Splitter.on(',').split(propString)) {
+        List<String> propNameAndVal = Splitter.on('=').splitToList(prop);
+        if (propNameAndVal.size() == 2) {
+          properties.add(new Property(propNameAndVal.get(0), propNameAndVal.get(1)));
         }
       }
     }

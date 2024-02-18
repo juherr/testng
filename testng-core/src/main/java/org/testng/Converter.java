@@ -6,6 +6,7 @@ import com.beust.jcommander.ParameterException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -80,7 +81,7 @@ public class Converter {
   }
 
   private void writeFile(File newFile, String content) throws IOException {
-    try (FileWriter bw = new FileWriter(newFile)) {
+    try (FileWriter bw = new FileWriter(newFile, Charset.defaultCharset())) {
       bw.write(content);
     }
     System.out.println("Wrote " + newFile);

@@ -216,8 +216,8 @@ public class Parser {
   }
 
   /**
+   * Returns <code>true</code> if the uri has "file:" as its scheme.
    * @param uri - The uri to be verified.
-   * @return - <code>true</code> if the uri has "file:" as its scheme.
    */
   public static boolean hasFileScheme(String uri) {
     URI constructedURI = constructURI(uri);

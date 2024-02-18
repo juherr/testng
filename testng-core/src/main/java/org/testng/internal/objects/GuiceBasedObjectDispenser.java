@@ -26,8 +26,8 @@ class GuiceBasedObjectDispenser implements IObjectDispenser {
       // We don't have the ability to process object creation with elaborate attributes
       return this.dispenser.dispense(attributes);
     }
+    lock.lock();
     try {
-      lock.lock();
       return dispenseObject(attributes);
     } finally {
       lock.unlock();

@@ -1,8 +1,8 @@
 package test.dataprovider.issue2327;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,7 +16,7 @@ public class TestClassSample {
 
   @DataProvider(name = "dp", parallel = true)
   public Iterator<Object> dp() {
-    LinkedList<Object> objects = new LinkedList<>();
+    ArrayList<Object> objects = new ArrayList<>();
     objects.add("Dataset1");
     objects.add("Dataset2");
     return objects.iterator();

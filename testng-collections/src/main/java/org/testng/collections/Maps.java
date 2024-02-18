@@ -7,12 +7,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Maps {
+public final class Maps {
+  private Maps() {}
 
   public static <K, V> Map<K, V> newHashMap() {
     return new HashMap<>();
   }
 
+  @Deprecated
   public static <K, V> Map<K, V> newHashtable() {
     return new Hashtable<>();
   }

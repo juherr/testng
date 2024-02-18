@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -25,7 +26,7 @@ class JarFileUtils {
   private final String xmlPathInJar;
   private final boolean ignoreMissedTestNames;
   private final List<String> testNames;
-  private final List<XmlSuite> suites = Lists.newLinkedList();
+  private final List<XmlSuite> suites = Lists.newArrayList();
   private final XmlSuite.ParallelMode mode;
 
   JarFileUtils(IPostProcessor processor, String xmlPathInJar, List<String> testNames) {
@@ -92,7 +93,7 @@ class JarFileUtils {
       while (entries.hasMoreElements()) {
         JarEntry je = entries.nextElement();
         String jeName = je.getName();
-        if (Parser.canParse(jeName.toLowerCase())) {
+        if (Parser.canParse(jeName.toLowerCase(Locale.getDefault()))) {
           InputStream inputStream = jf.getInputStream(je);
           File copyFile = new File(file, jeName);
           if (!copyFile.toPath().normalize().startsWith(file.toPath().normalize())) {

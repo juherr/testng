@@ -578,7 +578,7 @@ public class AssertTest {
     }
   }
 
-  class Asymmetric extends Contrived {
+  static class Asymmetric extends Contrived {
 
     char character;
 

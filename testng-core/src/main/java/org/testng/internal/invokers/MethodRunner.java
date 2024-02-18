@@ -22,7 +22,6 @@ import org.testng.collections.Lists;
 import org.testng.internal.ObjectBag;
 import org.testng.internal.Parameters;
 import org.testng.internal.invokers.ITestInvoker.FailureContext;
-import org.testng.internal.invokers.TestMethodArguments.Builder;
 import org.testng.internal.thread.TestNGThreadFactory;
 import org.testng.xml.XmlSuite;
 
@@ -53,7 +52,7 @@ public class MethodRunner implements IMethodRunner {
       List<ITestResult> tmpResults = Lists.newArrayList();
       int tmpResultsIndex = -1;
       TestMethodArguments tmArguments =
-          new Builder()
+          new TestMethodArguments.Builder()
               .usingArguments(arguments)
               .withParameterValues(parameterValues)
               .withParametersIndex(parametersIndex)

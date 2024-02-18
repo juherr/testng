@@ -1,5 +1,6 @@
 package org.testng.internal;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.ServiceLoader;
 import javax.script.ScriptEngineFactory;
@@ -19,12 +20,12 @@ public final class ScriptSelectorFactory {
       throw new IllegalArgumentException("Language name must not be null");
     }
 
-    String languageName = script.getLanguage().toLowerCase();
+    String languageName = script.getLanguage().toLowerCase(Locale.getDefault());
     ScriptEngineFactory engineFactory = ENGINE_FACTORIES.get(languageName);
     if (engineFactory == null) {
       ServiceLoader<ScriptEngineFactory> loader = ServiceLoader.load(ScriptEngineFactory.class);
       for (ScriptEngineFactory factory : loader) {
-        ENGINE_FACTORIES.put(factory.getLanguageName().toLowerCase(), factory);
+        ENGINE_FACTORIES.put(factory.getLanguageName().toLowerCase(Locale.getDefault()), factory);
       }
 
       engineFactory = ENGINE_FACTORIES.get(languageName);

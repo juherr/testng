@@ -45,7 +45,7 @@ public class UniversalListener
         IAnnotationTransformer,
         IConfigurationListener {
 
-  private List<String> messages = Lists.newLinkedList();
+  private List<String> messages = Lists.newArrayList();
 
   public List<String> getMessages() {
     return messages;

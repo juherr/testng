@@ -1,5 +1,7 @@
 package org.testng.internal;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -71,12 +73,12 @@ public class Graph<T> {
     return m_nodes.values();
   }
 
-  /** @return All the nodes that don't have any order with each other. */
+  /** Returns all the nodes that don't have any order with each other. */
   public Set<T> getIndependentNodes() {
     return m_independentNodes.keySet();
   }
 
-  /** @return All the nodes that have an order with each other, sorted in one of the valid sorts. */
+  /** Returns all the nodes that have an order with each other, sorted in one of the valid sorts. */
   public List<T> getStrictlySortedNodes() {
     return m_strictlySortedNodes;
   }
@@ -172,10 +174,7 @@ public class Graph<T> {
     return nodes.parallelStream().filter(it -> !it.hasPredecessors()).findFirst().orElse(null);
   }
 
-  /**
-   * @param o - The predecessor
-   * @return A list of all the predecessors for o
-   */
+  /** @param o - The predecessor Returns a list of all the predecessors for o */
   public List<T> findPredecessors(T o) {
     // Locate the node
     Node<T> node = findNode(o);
@@ -192,7 +191,7 @@ public class Graph<T> {
 
     LinkedList<T> result = new LinkedList<>();
     Set<T> visited = new HashSet<>();
-    LinkedList<T> queue = new LinkedList<>();
+    ArrayDeque<T> queue = new ArrayDeque<>();
     visited.add(o);
     queue.addLast(o);
 
@@ -248,10 +247,7 @@ public class Graph<T> {
       return m_predecessors;
     }
 
-    /**
-     * @param o The predecessor to remove
-     * @return true if this predecessor was found and removed
-     */
+    /** @param o The predecessor to remove Returns true if this predecessor was found and removed */
     public boolean removePredecessor(T o) {
       boolean result = false;
 

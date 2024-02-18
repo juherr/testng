@@ -20,7 +20,7 @@ public abstract class RetryAnalyzerCount implements IRetryAnalyzer {
     this.count.set(count);
   }
 
-  /** @return the current counter value */
+  /** Returns the current counter value */
   protected int getCount() {
     return this.count.get();
   }

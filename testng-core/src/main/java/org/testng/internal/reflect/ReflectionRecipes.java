@@ -168,7 +168,8 @@ public final class ReflectionRecipes {
   }
 
   /**
-   * @return matches or not
+   * Returns matches or not
+   *
    * @see #matchArrayEnding(Class[], Object[])
    */
   public static boolean matchArrayEnding(final Parameter[] parameters, final Object[] param) {

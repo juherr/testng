@@ -39,9 +39,6 @@ class GuiceHelper {
   private final String testName;
   private final ITestContext context;
 
-  private static final BiPredicate<Module, Module> CLASS_EQUALITY =
-      (m, n) -> m.getClass().equals(n.getClass());
-
   GuiceHelper(ITestContext context) {
     parentModule = context.getSuite().getParentModule();
     stageString = context.getSuite().getGuiceStage();
@@ -189,10 +186,10 @@ class GuiceHelper {
       List<Module> modules = getGuiceModules(moduleClass);
       if (modules != null && !modules.isEmpty()) {
         result.addAll(modules);
-        result = Lists.merge(result, CLASS_EQUALITY, modules);
+        result = Lists.merge(result, GuiceHelper::classEquality, modules);
       } else {
         Module instance = parentInjector.getInstance(moduleClass);
-        result = Lists.merge(result, CLASS_EQUALITY, Collections.singletonList(instance));
+        result = Lists.merge(result, GuiceHelper::classEquality, Collections.singletonList(instance));
         addGuiceModule(instance);
       }
     }
@@ -201,11 +198,15 @@ class GuiceHelper {
       IModuleFactory factoryInstance = parentInjector.getInstance(factory);
       Module module = factoryInstance.createModule(context, testClass);
       if (module != null) {
-        result = Lists.merge(result, CLASS_EQUALITY, Collections.singletonList(module));
+        result = Lists.merge(result, GuiceHelper::classEquality, Collections.singletonList(module));
       }
     }
-    result = Lists.merge(result, CLASS_EQUALITY, LazyHolder.getSpiModules());
+    result = Lists.merge(result, GuiceHelper::classEquality, LazyHolder.getSpiModules());
     return result;
+  }
+
+  private static boolean classEquality(Module m, Module n) {
+    return m.getClass().equals(n.getClass());
   }
 
   private static final class LazyHolder {

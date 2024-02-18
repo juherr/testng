@@ -376,8 +376,8 @@ public class AssertTest {
   @Test(description = "GITHUB-2540", expectedExceptions = AssertionError.class)
   public void checkIteratorEqualsFailsWhenDifferentOrder() {
 
-    Iterator<String> iterator1 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
-    Iterator<String> iterator2 = (new LinkedHashSet<>(Arrays.asList("a", "c", "b"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "c", "b")).iterator();
 
     assertEquals(iterator1, iterator2);
   }
@@ -385,8 +385,8 @@ public class AssertTest {
   @Test(description = "GITHUB-2540")
   public void checkIteratorEqualsNoOrder() {
 
-    Iterator<String> iterator1 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
-    Iterator<String> iterator2 = (new LinkedHashSet<>(Arrays.asList("a", "c", "b"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "c", "b")).iterator();
 
     assertEqualsNoOrder(iterator1, iterator2);
   }
@@ -394,9 +394,8 @@ public class AssertTest {
   @Test(expectedExceptions = AssertionError.class)
   public void checkIteratorEqualsNoOrderIterator1SizeGreater() {
 
-    Iterator<String> iterator1 =
-        (new LinkedHashSet<>(Arrays.asList("a", "b", "c", "d"))).iterator();
-    Iterator<String> iterator2 = (new LinkedHashSet<>(Arrays.asList("a", "c", "b"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c", "d")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "c", "b")).iterator();
 
     assertEqualsNoOrder(iterator1, iterator2);
   }
@@ -404,9 +403,8 @@ public class AssertTest {
   @Test(expectedExceptions = AssertionError.class)
   public void checkIteratorEqualsNoOrderIterator2SizeGreater() {
 
-    Iterator<String> iterator1 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
-    Iterator<String> iterator2 =
-        (new LinkedHashSet<>(Arrays.asList("a", "c", "b", "d"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "c", "b", "d")).iterator();
 
     assertEqualsNoOrder(iterator1, iterator2);
   }
@@ -414,8 +412,8 @@ public class AssertTest {
   @Test(description = "GITHUB-2540")
   public void checkIteratorEquals() {
 
-    Iterator<String> iterator1 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
-    Iterator<String> iterator2 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
 
     assertEquals(iterator1, iterator2);
   }
@@ -423,8 +421,8 @@ public class AssertTest {
   @Test(description = "GITHUB-2540")
   public void checkIteratorNotEquals() {
 
-    Iterator<String> iterator1 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
-    Iterator<String> iterator2 = (new LinkedHashSet<>(Arrays.asList("a", "c", "b"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "c", "b")).iterator();
 
     assertNotEquals(iterator1, iterator2);
   }
@@ -432,8 +430,8 @@ public class AssertTest {
   @Test(description = "GITHUB-2540", expectedExceptions = AssertionError.class)
   public void checkIteratorNotEqualsFailsWhenDifferentOrder() {
 
-    Iterator<String> iterator1 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
-    Iterator<String> iterator2 = (new LinkedHashSet<>(Arrays.asList("a", "b", "c"))).iterator();
+    Iterator<String> iterator1 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
+    Iterator<String> iterator2 = new LinkedHashSet<>(Arrays.asList("a", "b", "c")).iterator();
 
     assertNotEquals(iterator1, iterator2);
   }
@@ -609,6 +607,7 @@ public class AssertTest {
       assertNotEquals((Object) m1, (Object) m2);
       succeeded = true;
     } catch (AssertionError expected) {
+      // Ignore
     }
     assertFalse(succeeded, "Maps reported as not equal when equal: " + m1 + " / " + m2);
 
@@ -616,6 +615,7 @@ public class AssertTest {
       assertNotEquals(m1, m2);
       succeeded = true;
     } catch (AssertionError expected) {
+      // Ignore
     }
     assertFalse(succeeded, "Maps reported as not equal when equal: " + m1 + " / " + m2);
   }
@@ -626,6 +626,7 @@ public class AssertTest {
       assertEquals((Object) m1, (Object) m2);
       succeeded = true;
     } catch (AssertionError expected) {
+      // Ignore
     }
     assertFalse(succeeded, "Maps reported as equal when not equal: " + m1 + " / " + m2);
 
@@ -633,6 +634,7 @@ public class AssertTest {
       assertEquals(m1, m2);
       succeeded = true;
     } catch (AssertionError expected) {
+      // Ignore
     }
     assertFalse(succeeded, "Maps reported as equal when not equal: " + m1 + " / " + m2);
 

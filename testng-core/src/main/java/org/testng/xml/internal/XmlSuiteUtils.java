@@ -69,7 +69,7 @@ public final class XmlSuiteUtils {
   }
 
   private static List<XmlClass> constructXmlClassesUsing(List<String> classes) {
-    List<XmlClass> xmlClasses = Lists.newLinkedList();
+    List<XmlClass> xmlClasses = Lists.newArrayList();
     for (String cls : classes) {
       XmlClass xmlClass = new XmlClass(cls);
       xmlClasses.add(xmlClass);

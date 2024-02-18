@@ -195,7 +195,7 @@ public @interface Test {
   int priority() default 0;
 
   /**
-   * @return - An array of {@link CustomAttribute} that represents a set of custom attributes for a
+   * Returns an array of {@link CustomAttribute} that represents a set of custom attributes for a
    *     test method.
    */
   CustomAttribute[] attributes() default {};

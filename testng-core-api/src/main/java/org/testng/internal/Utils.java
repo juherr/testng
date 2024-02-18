@@ -12,6 +12,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -200,10 +201,10 @@ public final class Utils {
       boolean ignored = outputFile.createNewFile();
     }
     OutputStreamWriter osw;
-    if (null != encoding) {
-      osw = new OutputStreamWriter(new FileOutputStream(outputFile), encoding);
+    if (encoding == null) {
+      osw = new OutputStreamWriter(new FileOutputStream(outputFile), Charset.defaultCharset());
     } else {
-      osw = new OutputStreamWriter(new FileOutputStream(outputFile));
+      osw = new OutputStreamWriter(new FileOutputStream(outputFile), encoding);
     }
     return new BufferedWriter(osw);
   }

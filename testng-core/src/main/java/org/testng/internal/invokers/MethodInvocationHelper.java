@@ -109,7 +109,8 @@ public class MethodInvocationHelper {
                   clazz.getDeclaredMethod(thisMethod.getName(), thisMethod.getParameterTypes());
               found = true;
               break;
-            } catch (Exception e2) {
+            } catch (Exception ignore) {
+              // Ignore
             }
           }
           if (!found) {

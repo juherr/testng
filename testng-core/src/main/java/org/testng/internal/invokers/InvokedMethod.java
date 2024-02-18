@@ -14,9 +14,6 @@ public class InvokedMethod implements IInvokedMethod {
     m_testResult = testResult;
   }
 
-  /* (non-Javadoc)
-   * @see org.testng.internal.IInvokedMethod#isTestMethod()
-   */
   @Override
   public boolean isTestMethod() {
     return m_testResult.getMethod().isTest();
@@ -34,25 +31,16 @@ public class InvokedMethod implements IInvokedMethod {
     return result.toString();
   }
 
-  /* (non-Javadoc)
-   * @see org.testng.internal.IInvokedMethod#isConfigurationMethod()
-   */
   @Override
   public boolean isConfigurationMethod() {
     return TestNgMethodUtils.isConfigurationMethod(m_testResult.getMethod());
   }
 
-  /* (non-Javadoc)
-   * @see org.testng.internal.IInvokedMethod#getTestMethod()
-   */
   @Override
   public ITestNGMethod getTestMethod() {
     return m_testResult.getMethod();
   }
 
-  /* (non-Javadoc)
-   * @see org.testng.internal.IInvokedMethod#getDate()
-   */
   @Override
   public long getDate() {
     return m_date;

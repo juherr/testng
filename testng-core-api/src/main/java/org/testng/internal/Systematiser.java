@@ -26,7 +26,7 @@ public final class Systematiser {
   }
 
   /**
-   * @return - A {@link Comparator} that helps TestNG sort {@link ITestNGMethod}s in a specific
+   * Returns a {@link Comparator} that helps TestNG sort {@link ITestNGMethod}s in a specific
    *     order. Currently the following two orders are supported : <br>
    *     <ol>
    *       <li>Based on the name of methods

@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
  * Simple afterGroups test
  *
  * @author cbeust
- * @date Mar 7, 2006
+ * @since Mar 7, 2006
  */
 public class ConfigurationGroups4SampleTest {
 

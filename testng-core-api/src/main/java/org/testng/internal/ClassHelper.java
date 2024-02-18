@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import org.testng.TestNGException;
@@ -27,7 +26,7 @@ import org.testng.xml.XmlTest;
 public final class ClassHelper {
 
   /** The additional class loaders to find classes in. */
-  private static final List<ClassLoader> classLoaders = new Vector<>();
+  private static final List<ClassLoader> classLoaders = new ArrayList<>();
 
   private static final String CLASS_HELPER = ClassHelper.class.getSimpleName();
 
@@ -143,7 +142,7 @@ public final class ClassHelper {
 
   /**
    * @param clazz - The {@link Class} in which the search is to be done.
-   * @return - A {@link Set} of {@link Method} excluding default methods from base class interfaces.
+   * Returns a {@link Set} of {@link Method} excluding default methods from base class interfaces.
    */
   public static Set<Method> getAvailableMethodsExcludingDefaults(Class<?> clazz) {
     // First group the methods based on names

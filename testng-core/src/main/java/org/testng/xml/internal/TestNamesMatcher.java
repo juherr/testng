@@ -104,7 +104,7 @@ public final class TestNamesMatcher {
   }
 
   private XmlSuite cloneIfSuiteContainTestsWithNamesMatchingAny(XmlSuite suite) {
-    List<XmlTest> tests = Lists.newLinkedList();
+    List<XmlTest> tests = Lists.newArrayList();
     for (XmlTest xt : suite.getTests()) {
       if (xt.nameMatchesAny(testNames)) {
         tests.add(xt);

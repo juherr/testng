@@ -171,7 +171,7 @@ public class TestResult implements ITestResult {
     return m_name;
   }
 
-  /** @return Returns the method. */
+  /** Returns the method. */
   @Override
   public ITestNGMethod getMethod() {
     return m_method;
@@ -182,7 +182,7 @@ public class TestResult implements ITestResult {
     m_method = method;
   }
 
-  /** @return Returns the status. */
+  /** Returns the status. */
   @Override
   public int getStatus() {
     return m_status;
@@ -199,13 +199,13 @@ public class TestResult implements ITestResult {
     return ITestResult.SUCCESS == m_status;
   }
 
-  /** @return Returns the testClass. */
+  /** Returns the testClass. */
   @Override
   public IClass getTestClass() {
     return m_method.getTestClass();
   }
 
-  /** @return Returns the throwable. */
+  /** Returns the throwable. */
   @Override
   public Throwable getThrowable() {
     return m_throwable;
@@ -217,13 +217,13 @@ public class TestResult implements ITestResult {
     m_throwable = throwable;
   }
 
-  /** @return Returns the endMillis. */
+  /** Returns the endMillis. */
   @Override
   public long getEndMillis() {
     return m_endMillis;
   }
 
-  /** @return Returns the startMillis. */
+  /** Returns the startMillis. */
   @Override
   public long getStartMillis() {
     return m_startMillis;
@@ -362,14 +362,17 @@ public class TestResult implements ITestResult {
     return parameterIndex;
   }
 
+  @Override
   public boolean wasRetried() {
     return m_wasRetried;
   }
 
+  @Override
   public void setWasRetried(boolean wasRetried) {
     this.m_wasRetried = wasRetried;
   }
 
+  @Override
   public List<ITestNGMethod> getSkipCausedBy() {
     if (this.m_status != SKIP || skipAnalysed) {
       return Collections.unmodifiableList(skippedDueTo);
@@ -446,6 +449,7 @@ public class TestResult implements ITestResult {
                     || each.matcher(method.getMethodName()).matches());
   }
 
+  @Override
   public String id() {
     return id;
   }

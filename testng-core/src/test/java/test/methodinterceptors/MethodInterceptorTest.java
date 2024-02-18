@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 import org.testng.Assert;
 import org.testng.ITestNGListener;
@@ -15,6 +16,8 @@ import org.testng.xml.XmlSuite;
 import org.testng.xml.internal.Parser;
 import test.SimpleBaseTest;
 import test.TestHelper;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MethodInterceptorTest extends SimpleBaseTest {
 
@@ -86,7 +89,7 @@ public class MethodInterceptorTest extends SimpleBaseTest {
 
     File f = File.createTempFile("testng-tests-", "");
     f.deleteOnExit();
-    BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+    BufferedWriter bw = new BufferedWriter(new FileWriter(f, UTF_8));
     bw.write(XML);
     bw.close();
 

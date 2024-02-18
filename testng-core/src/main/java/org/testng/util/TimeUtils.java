@@ -13,8 +13,8 @@ public final class TimeUtils {
 
   /**
    * @param timeInMilliSeconds - The time in milliseconds
-   * @param format - A format that can be used by {@link SimpleDateFormat}
-   * @return - A formatted string representation of the time in the timezone as obtained via {@link
+   * @param format - A format that can be used by {@link SimpleDateFormat} Returns a formatted
+   *     string representation of the time in the timezone as obtained via {@link
    *     RuntimeBehavior#getTimeZone()}
    */
   public static String formatTimeInLocalOrSpecifiedTimeZone(

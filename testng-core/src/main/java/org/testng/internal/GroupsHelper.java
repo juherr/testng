@@ -40,12 +40,12 @@ public final class GroupsHelper {
       return result;
     }
 
-    List<String> unfinishedGroups = Lists.newLinkedList();
+    List<String> unfinishedGroups = Lists.newArrayList();
     collectGroups(groups, unfinishedGroups, metaGroups, result);
 
     while (!unfinishedGroups.isEmpty()) {
-      List<String> uGroups = Lists.newLinkedList(unfinishedGroups);
-      unfinishedGroups = Lists.newLinkedList();
+      List<String> uGroups = Lists.newArrayList(unfinishedGroups);
+      unfinishedGroups = Lists.newArrayList();
       collectGroups(uGroups, unfinishedGroups, metaGroups, result);
     }
 

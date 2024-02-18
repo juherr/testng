@@ -78,7 +78,7 @@ class TestNgMethodUtils {
     return filterMethods(testClass, testClass.getAfterTestMethods(), predicate);
   }
 
-  /** @return Only the ITestNGMethods applicable for this testClass */
+  /** Returns only the ITestNGMethods applicable for this testClass */
   static ITestNGMethod[] filterMethods(
       IClass testClass, ITestNGMethod[] methods, BiPredicate<ITestNGMethod, IClass> predicate) {
     List<ITestNGMethod> vResult = Lists.newArrayList();
@@ -86,7 +86,7 @@ class TestNgMethodUtils {
     for (ITestNGMethod tm : methods) {
       String msg;
       if (predicate.test(tm, testClass)
-          && (!TestNgMethodUtils.containsConfigurationMethod(tm, vResult))) {
+          && !TestNgMethodUtils.containsConfigurationMethod(tm, vResult)) {
         msg = Utils.getVerbose() < 10 ? "" : "Keeping method " + tm + " for class " + testClass;
         vResult.add(tm);
       } else {
@@ -125,7 +125,7 @@ class TestNgMethodUtils {
 
   /**
    * @param tm - The {@link ITestNGMethod} object which is to be tested.
-   * @return - <code>true</code> if the method depends on other methods and cannot be run
+   * Returns <code>true</code> if the method depends on other methods and cannot be run
    *     independently.
    */
   static boolean cannotRunMethodIndependently(ITestNGMethod tm) {

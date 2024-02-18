@@ -13,12 +13,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Stack;
+import com.google.common.base.Splitter;
 import org.testng.ITestObjectFactory;
 import org.testng.TestNGException;
 import org.testng.collections.Lists;
@@ -100,7 +101,7 @@ public class TestNGContentHandler extends DefaultHandler {
     EXCLUDE
   }
 
-  private final Stack<Location> m_locations = new Stack<>();
+  private final ArrayDeque<Location> m_locations = new ArrayDeque<>();
   private boolean isSuiteFileTag = false;
 
   private XmlClass m_currentClass = null;
@@ -730,7 +731,7 @@ public class TestNGContentHandler extends DefaultHandler {
   }
 
   private List<Integer> stringToList(String in) {
-    String[] numbers = in.split(" ");
+    Iterable<String> numbers = Splitter.on(' ').split(in);
     List<Integer> result = Lists.newArrayList();
     for (String n : numbers) {
       result.add(Integer.parseInt(n));

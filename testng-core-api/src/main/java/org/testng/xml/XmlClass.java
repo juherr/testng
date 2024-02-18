@@ -75,7 +75,7 @@ public class XmlClass implements Cloneable {
     }
   }
 
-  /** @return Returns the className. */
+  /** Returns the className. */
   public Class<?> getSupportClass() {
     if (m_class == null) loadClass();
     return m_class;
@@ -86,7 +86,7 @@ public class XmlClass implements Cloneable {
     m_class = className;
   }
 
-  /** @return Returns the excludedMethods. */
+  /** Returns the excludedMethods. */
   public List<String> getExcludedMethods() {
     return m_excludedMethods;
   }
@@ -96,7 +96,7 @@ public class XmlClass implements Cloneable {
     m_excludedMethods = excludedMethods;
   }
 
-  /** @return Returns the includedMethods. */
+  /** Returns the includedMethods. */
   public List<XmlInclude> getIncludedMethods() {
     return m_includedMethods;
   }
@@ -106,7 +106,7 @@ public class XmlClass implements Cloneable {
     m_includedMethods = includedMethods;
   }
 
-  /** @return Returns the name. */
+  /** Returns the name. */
   public String getName() {
     return m_name;
   }
@@ -116,7 +116,7 @@ public class XmlClass implements Cloneable {
     m_name = name;
   }
 
-  /** @return true if the classes need to be loaded. */
+  /** Returns true if the classes need to be loaded. */
   public boolean loadClasses() {
     return m_loadClasses;
   }
@@ -214,8 +214,9 @@ public class XmlClass implements Cloneable {
     if (this == obj) {
       return true;
     }
-    if (obj == null) return XmlSuite.f();
-    if (getClass() != obj.getClass()) return XmlSuite.f();
+    if (!(obj instanceof XmlClass)) {
+      return false;
+    }
     XmlClass other = (XmlClass) obj;
     if (other.m_loadClasses != m_loadClasses) {
       return XmlSuite.f();
@@ -232,7 +233,7 @@ public class XmlClass implements Cloneable {
     m_parameters.putAll(parameters);
   }
 
-  /** @return The parameters defined in this test tag and the tags above it. */
+  /** Returns the parameters defined in this test tag and the tags above it. */
   public Map<String, String> getAllParameters() {
     Map<String, String> result = Maps.newHashMap();
     if (m_xmlTest != null) {
@@ -243,7 +244,7 @@ public class XmlClass implements Cloneable {
   }
 
   /**
-   * @return The parameters defined in this tag, and only this test tag. To retrieve the inherited
+   * Returns the parameters defined in this tag, and only this test tag. To retrieve the inherited
    *     parameters as well, call {@code getAllParameters()}.
    */
   public Map<String, String> getLocalParameters() {

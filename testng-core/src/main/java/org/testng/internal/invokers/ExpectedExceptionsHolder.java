@@ -32,8 +32,8 @@ public class ExpectedExceptionsHolder {
   }
 
   /**
+   * Returns true if the exception that was just thrown is part of the expected exceptions
    * @param ite The exception that was just thrown
-   * @return true if the exception that was just thrown is part of the expected exceptions
    */
   public boolean isExpectedException(Throwable ite) {
     if (hasNoExpectedClasses()) {

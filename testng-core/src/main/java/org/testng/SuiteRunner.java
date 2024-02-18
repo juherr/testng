@@ -231,6 +231,7 @@ public class SuiteRunner implements ISuite, ISuiteRunnerListener {
     useDefaultListeners = reportResults;
   }
 
+  @Override
   public ITestListener getExitCodeListener() {
     return exitCodeListener;
   }
@@ -252,12 +253,12 @@ public class SuiteRunner implements ISuite, ISuiteRunnerListener {
     }
   }
 
-  private void setOutputDir(String outputdir) {
-    if (isStringBlank(outputdir) && useDefaultListeners) {
-      outputdir = DEFAULT_OUTPUT_DIR;
+  private void setOutputDir(String outputDir) {
+    if (isStringBlank(outputDir) && useDefaultListeners) {
+      outputDir = DEFAULT_OUTPUT_DIR;
     }
 
-    outputDir = (null != outputdir) ? new File(outputdir).getAbsolutePath() : null;
+    this.outputDir = (null != outputDir) ? new File(outputDir).getAbsolutePath() : null;
   }
 
   private ITestRunnerFactory buildRunnerFactory(Comparator<ITestNGMethod> comparator) {
@@ -351,7 +352,7 @@ public class SuiteRunner implements ISuite, ISuiteRunnerListener {
     if (invoker != null) {
       if (!beforeSuiteMethods.values().isEmpty()) {
         ConfigMethodArguments arguments =
-            new Builder()
+            new ConfigMethodArguments.Builder()
                 .usingConfigMethodsAs(beforeSuiteMethods.values())
                 .forSuite(xmlSuite)
                 .usingParameters(xmlSuite.getParameters())
@@ -379,7 +380,7 @@ public class SuiteRunner implements ISuite, ISuiteRunnerListener {
       //
       if (!afterSuiteMethods.values().isEmpty()) {
         ConfigMethodArguments arguments =
-            new Builder()
+            new ConfigMethodArguments.Builder()
                 .usingConfigMethodsAs(afterSuiteMethods.values())
                 .forSuite(xmlSuite)
                 .usingParameters(xmlSuite.getAllParameters())

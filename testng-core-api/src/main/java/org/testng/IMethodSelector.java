@@ -15,7 +15,7 @@ public interface IMethodSelector {
    *     getUserData().
    * @param method The test method
    * @param isTestMethod true if this is a @Test method, false if it's a configuration method
-   * @return true if this method should be included in the test run, false otherwise
+   * Returns true if this method should be included in the test run, false otherwise
    */
   boolean includeMethod(IMethodSelectorContext context, ITestNGMethod method, boolean isTestMethod);
 

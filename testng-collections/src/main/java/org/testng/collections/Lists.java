@@ -12,10 +12,12 @@ public final class Lists {
     return new ArrayList<>();
   }
 
+  @Deprecated
   public static <K> List<K> newLinkedList() {
     return new LinkedList<>();
   }
 
+  @Deprecated
   public static <K> List<K> newLinkedList(Collection<K> c) {
     return new LinkedList<>(c);
   }

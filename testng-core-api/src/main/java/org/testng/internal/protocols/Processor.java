@@ -3,6 +3,7 @@ package org.testng.internal.protocols;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 import org.testng.collections.Lists;
 import org.testng.internal.Utils;
@@ -13,7 +14,7 @@ public abstract class Processor {
 
   public static Processor newInstance(String protocol) {
     Processor instance;
-    switch (protocol.toLowerCase()) {
+    switch (protocol.toLowerCase(Locale.getDefault())) {
       case "file":
         instance = new FileProcessor();
         break;
@@ -46,9 +47,9 @@ public abstract class Processor {
     File[] dirfiles =
         dir.listFiles(
             file ->
-                (recursive && file.isDirectory())
-                    || (file.getName().endsWith(".class"))
-                    || (file.getName().endsWith(".groovy")));
+                recursive && file.isDirectory()
+                    || file.getName().endsWith(".class")
+                    || file.getName().endsWith(".groovy"));
 
     Utils.log(CLS_NAME, 4, "Looking for test classes in the directory: " + dir);
     if (dirfiles == null) {

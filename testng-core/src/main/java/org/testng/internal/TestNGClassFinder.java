@@ -266,7 +266,7 @@ public class TestNGClassFinder extends BaseClassFinder {
   }
 
   private static boolean isNotTestNGClass(Class<?> c, IAnnotationFinder annotationFinder) {
-    return (!isTestNGClass(c, annotationFinder));
+    return !isTestNGClass(c, annotationFinder);
   }
 
   /**

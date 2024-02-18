@@ -78,7 +78,7 @@ public class TestMethodWithDataProviderMethodWorker implements Callable<List<ITe
     try {
       tmpResults.add(
           m_testInvoker.invokeTestMethod(
-              new Builder()
+              new TestMethodArguments.Builder()
                   .usingInstance(m_instance)
                   .forTestMethod(m_testMethod)
                   .withParameterValues(m_parameterValues)
@@ -102,7 +102,7 @@ public class TestMethodWithDataProviderMethodWorker implements Callable<List<ITe
           m_failureCount =
               m_testInvoker
                   .retryFailed(
-                      new Builder()
+                      new TestMethodArguments.Builder()
                           .usingInstance(instance)
                           .forTestMethod(m_testMethod)
                           .withParameterValues(m_parameterValues)

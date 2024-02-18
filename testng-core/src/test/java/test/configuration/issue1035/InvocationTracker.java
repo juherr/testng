@@ -31,7 +31,7 @@ public class InvocationTracker {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof InvocationTracker)) {
       return false;
     }
     InvocationTracker tracker = (InvocationTracker) o;

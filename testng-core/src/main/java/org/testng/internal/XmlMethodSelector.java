@@ -262,12 +262,12 @@ public class XmlMethodSelector implements IMethodSelector {
     }
   }
 
-  /** @return Returns the excludedGroups. */
+  /** Returns the excludedGroups. */
   public Map<String, String> getExcludedGroups() {
     return m_excludedGroups;
   }
 
-  /** @return Returns the includedGroups. */
+  /** Returns the includedGroups. */
   public Map<String, String> getIncludedGroups() {
     return m_includedGroups;
   }

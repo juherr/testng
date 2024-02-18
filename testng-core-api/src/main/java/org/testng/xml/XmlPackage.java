@@ -24,7 +24,7 @@ public class XmlPackage {
     m_name = name;
   }
 
-  /** @return the exclude */
+  /** Returns the exclude */
   public List<String> getExclude() {
     return m_exclude;
   }
@@ -34,7 +34,7 @@ public class XmlPackage {
     m_exclude = exclude;
   }
 
-  /** @return the include */
+  /** Returns the include */
   public List<String> getInclude() {
     return m_include;
   }
@@ -44,7 +44,7 @@ public class XmlPackage {
     m_include = include;
   }
 
-  /** @return the name */
+  /** Returns the name */
   public String getName() {
     return m_name;
   }
@@ -119,8 +119,7 @@ public class XmlPackage {
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
-    if (obj == null) return XmlSuite.f();
-    if (getClass() != obj.getClass()) return XmlSuite.f();
+    if (!(obj instanceof XmlPackage)) return false;
     XmlPackage other = (XmlPackage) obj;
     if (m_exclude == null) {
       if (other.m_exclude != null) return XmlSuite.f();

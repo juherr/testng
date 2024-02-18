@@ -97,8 +97,7 @@ public class XmlMethodSelector {
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
-    if (obj == null) return XmlSuite.f();
-    if (getClass() != obj.getClass()) return XmlSuite.f();
+    if (!(obj instanceof XmlMethodSelector)) return false;
     XmlMethodSelector other = (XmlMethodSelector) obj;
     if (m_className == null) {
       if (other.m_className != null) return XmlSuite.f();

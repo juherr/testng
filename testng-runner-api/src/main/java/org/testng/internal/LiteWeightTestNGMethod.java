@@ -1,8 +1,8 @@
 package org.testng.internal;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -27,7 +27,7 @@ public class LiteWeightTestNGMethod implements ITestNGMethod {
   private String missingGroup;
   private final String[] beforeGroups;
   private final String[] afterGroups;
-  private final List<String> methodsDependedUpon = new LinkedList<>();
+  private final List<String> methodsDependedUpon = new ArrayList<>();
   private int priority;
   private int interceptedPriority;
   private final XmlTest xmlTest;
@@ -292,8 +292,8 @@ public class LiteWeightTestNGMethod implements ITestNGMethod {
   }
 
   @Override
-  public void setTimeOut(long timeOut) {
-    this.timeout = timeOut;
+  public void setTimeOut(long timeout) {
+    this.timeout = timeout;
   }
 
   @Override

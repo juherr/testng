@@ -1,5 +1,6 @@
 package test.junitreports;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.xml.sax.Attributes;
@@ -92,5 +93,5 @@ public class Testsuite {
   private int failures;
   private int skipped;
   private int errors;
-  private List<Testcase> testcase = new LinkedList<>();
+  private final List<Testcase> testcase = new ArrayList<>();
 }

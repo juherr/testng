@@ -119,7 +119,7 @@ public class MethodGroupsHelper {
   }
 
   /**
-   * @return the map of groups and their corresponding methods from the extraction of <code>classes
+   * Returns the map of groups and their corresponding methods from the extraction of <code>classes
    *     </code>.
    */
   public static Map<String, List<ITestNGMethod>> findGroupsMethods(
@@ -246,9 +246,9 @@ public class MethodGroupsHelper {
 
   /**
    * @param methods list of methods to search
-   * @param groupRegexp regex representing the group
-   * @return all the methods that belong to the group specified by the regular expression
-   *     groupRegExp. methods[] is the list of all the methods we are choosing from.
+   * @param groupRegexp regex representing the group Returns all the methods that belong to the
+   *     group specified by the regular expression groupRegExp. methods[] is the list of all the
+   *     methods we are choosing from.
    */
   protected static ITestNGMethod[] findMethodsThatBelongToGroup(
       ITestNGMethod[] methods, String groupRegexp) {

@@ -61,6 +61,7 @@ public class GraphThreadPoolExecutor<T> extends ThreadPoolExecutor
     }
   }
 
+  @Override
   public void run() {
     synchronized (m_graph) {
       List<T> freeNodes = m_graph.getFreeNodes();

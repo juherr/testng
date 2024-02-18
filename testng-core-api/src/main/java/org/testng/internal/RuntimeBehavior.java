@@ -30,7 +30,7 @@ public final class RuntimeBehavior {
   }
 
   /**
-   * @return - <code>true</code> if TestNG is to be using its custom implementation of {@link
+   * Returns <code>true</code> if TestNG is to be using its custom implementation of {@link
    *     java.util.concurrent.ThreadPoolExecutor} for running concurrent tests. Defaults to <code>
    *     false</code>
    */
@@ -39,7 +39,7 @@ public final class RuntimeBehavior {
   }
 
   /**
-   * @return - A comma separated list of packages that represent special listeners which users will
+   * Returns a comma separated list of packages that represent special listeners which users will
    *     expect to be executed after executing the regular listeners. Here special listeners can be
    *     anything that a user feels should be executed ALWAYS at the end.
    */
@@ -114,7 +114,7 @@ public final class RuntimeBehavior {
   }
 
   /**
-   * @return - returns <code>true</code> if we would like to run in the Dry mode and <code>false
+   * Returns <code>true</code> if we would like to run in the Dry mode and <code>false
    *     </code> otherwise.
    */
   public static boolean isDryRun() {
@@ -123,7 +123,7 @@ public final class RuntimeBehavior {
   }
 
   /**
-   * @return - returns the {@link TimeZone} corresponding to the JVM argument <code>
+   * Returns the {@link TimeZone} corresponding to the JVM argument <code>
    *     -Dtestng.timezone</code> if it was set. If not set, it returns the default timezone
    *     pertaining to the user property <code>user.timezone</code>
    */
@@ -136,7 +136,7 @@ public final class RuntimeBehavior {
   }
 
   /**
-   * @return - <code>true</code> if we would like to enforce Thread affinity when dealing with the
+   * Returns <code>true</code> if we would like to enforce Thread affinity when dealing with the
    *     below two variants of execution models:
    *     <ul>
    *       <li>Ordering priority
@@ -157,7 +157,7 @@ public final class RuntimeBehavior {
   }
 
   /**
-   * @return - <code>true</code> if we would like to invoke AfterClass methods symmetrically to
+   * Returnw <code>true</code> if we would like to invoke AfterClass methods symmetrically to
    *     BeforeClass. When true, order is:
    *     <ol>
    *       <li>Class @afterClass methods

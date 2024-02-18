@@ -352,10 +352,7 @@ public abstract class BaseTestMethod implements ITestNGMethod, IInvocationStatus
     if (this == obj) {
       return true;
     }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (!(obj instanceof BaseTestMethod)) {
       return false;
     }
 

@@ -38,14 +38,9 @@ public final class ListenerOrderDeterminer {
           .map(each -> each.replaceAll("\\Q.*\\E", ""))
           .collect(Collectors.toList());
 
-  private static final Predicate<Class<?>> SHOULD_ADD_AT_END =
-      clazz ->
-          PREFERENTIAL_PACKAGES.stream()
-              .anyMatch(each -> clazz.getPackage().getName().contains(each));
-
   /**
+   * Returns a re-ordered collection wherein preferential listeners are added at the end
    * @param original - The original collection of listeners
-   * @return - A re-ordered collection wherein preferential listeners are added at the end
    */
   public static <T extends ITestNGListener> List<T> order(
       Collection<T> original, ListenerComparator comparator) {
@@ -57,9 +52,9 @@ public final class ListenerOrderDeterminer {
   }
 
   /**
-   * @param original - The original collection of listeners
-   * @return - A reversed ordered list wherein the user listeners are found in reverse order
+   * Returns a reversed ordered list wherein the user listeners are found in reverse order
    *     followed by preferential listeners also in reverse order.
+   * @param original - The original collection of listeners
    */
   public static <T extends ITestNGListener> List<T> reversedOrder(
       Collection<T> original, ListenerComparator comparator) {
@@ -79,12 +74,16 @@ public final class ListenerOrderDeterminer {
         .filter(Objects::nonNull)
         .forEach(
             each -> {
-              if (SHOULD_ADD_AT_END.test(each.getClass())) {
+              if (shouldAddAtEnd(each.getClass())) {
                 preferentialListeners.add(each);
               } else {
                 regularListeners.add(each);
               }
             });
     return new Pair<>(preferentialListeners, regularListeners);
+  }
+
+  private static boolean shouldAddAtEnd(Class<?> clazz) {
+    return PREFERENTIAL_PACKAGES.stream().anyMatch(each -> clazz.getPackage().getName().contains(each));
   }
 }

@@ -7,6 +7,7 @@ import static org.testng.internal.Utils.isStringNotEmpty;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import com.google.common.base.Splitter;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLClassLoader;
@@ -1521,7 +1522,7 @@ public class TestNG {
 
     String testClasses = cla.testClass;
     if (null != testClasses) {
-      String[] strClasses = testClasses.split(",");
+      Iterable<String> strClasses = Splitter.on(',').split(testClasses);
       List<Class<?>> classes = Lists.newArrayList();
       for (String c : strClasses) {
         classes.add(ClassHelper.fileToClass(c));
@@ -1873,17 +1874,17 @@ public class TestNG {
     }
   }
 
-  /** @return true if at least one test failed. */
+  /** Returns true if at least one test failed. */
   public boolean hasFailure() {
     return this.exitCode.hasFailure();
   }
 
-  /** @return true if at least one test failed within success percentage. */
+  /** Returns true if at least one test failed within success percentage. */
   public boolean hasFailureWithinSuccessPercentage() {
     return this.exitCode.hasFailureWithinSuccessPercentage();
   }
 
-  /** @return true if at least one test was skipped. */
+  /** Returns true if at least one test was skipped. */
   public boolean hasSkip() {
     return this.exitCode.hasSkip();
   }
@@ -1910,7 +1911,7 @@ public class TestNG {
     m_annotationTransformer = t;
   }
 
-  /** @return the defaultSuiteName */
+  /** Returns the defaultSuiteName */
   public String getDefaultSuiteName() {
     return m_defaultSuiteName;
   }
@@ -1920,7 +1921,7 @@ public class TestNG {
     m_defaultSuiteName = defaultSuiteName;
   }
 
-  /** @return the defaultTestName */
+  /** Returns the defaultTestName */
   public String getDefaultTestName() {
     return m_defaultTestName;
   }
@@ -1941,18 +1942,15 @@ public class TestNG {
     m_configFailurePolicy = failurePolicy;
   }
 
-  /**
-   * Returns the configuration failure policy.
-   *
-   * @return config failure policy
-   */
+  /** Returns the configuration failure policy. */
   public XmlSuite.FailurePolicy getConfigFailurePolicy() {
     return m_configFailurePolicy;
   }
 
   // DEPRECATED: to be removed after a major version change
   /**
-   * @return The default instance
+   * Returns the default instance
+   *
    * @deprecated since 5.1
    */
   @Deprecated

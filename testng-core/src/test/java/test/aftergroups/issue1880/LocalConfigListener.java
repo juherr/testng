@@ -6,7 +6,7 @@ import org.testng.ITestResult;
 import org.testng.collections.Lists;
 
 public class LocalConfigListener implements IConfigurationListener {
-  private final List<String> messages = Lists.newLinkedList();
+  private final List<String> messages = Lists.newArrayList();
 
   @Override
   public void onConfigurationSuccess(ITestResult itr) {

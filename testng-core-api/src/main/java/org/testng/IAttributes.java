@@ -4,10 +4,7 @@ import java.util.Set;
 
 /** A trait that is used by all interfaces that lets the user add or remove their own attributes. */
 public interface IAttributes {
-  /**
-   * @param name The name of the attribute to return
-   * @return The attribute
-   */
+  /** @param name The name of the attribute to return Returns the attribute */
   Object getAttribute(String name);
 
   /**
@@ -18,14 +15,13 @@ public interface IAttributes {
    */
   void setAttribute(String name, Object value);
 
-  /** @return all the attributes names. */
+  /** Returns all the attributes names. */
   Set<String> getAttributeNames();
 
   /**
    * Remove the attribute
    *
-   * @param name The attribute name
-   * @return the attribute value if found, null otherwise
+   * @param name The attribute name Returns the attribute value if found, null otherwise
    */
   Object removeAttribute(String name);
 }

@@ -406,7 +406,7 @@ public class Parameters {
     if (parameterNames.length == 0) {
       // parameterNames is usually populated via the @Parameters annotation, so we would need to
       // apply our logic only when @Parameters annotation is not involved.
-      boolean invalid = (totalLength != 0) || (!validParameters(methodAnnotation, parameterTypes));
+      boolean invalid = totalLength != 0 || !validParameters(methodAnnotation, parameterTypes);
       if (invalid) {
         String annotation = methodAnnotation;
         if (!methodAnnotation.startsWith("@")) {
@@ -507,7 +507,7 @@ public class Parameters {
         try {
           dataProviderClass = new DataProviderLoader().loadClazz(dp.getDataProviderDynamicClass());
         } catch (ClassNotFoundException e) {
-          throw new TestNGException("Dynamic data provider class %s not found", e);
+          throw new TestNGException(String.format("Dynamic data provider class %s not found", dp.getDataProviderDynamicClass()), e);
         }
       }
 
@@ -640,6 +640,7 @@ public class Parameters {
         try {
           instanceToUse = objectFactory.newInstance(cls);
         } catch (TestNGException ignored) {
+          // Ignore
         }
       }
 

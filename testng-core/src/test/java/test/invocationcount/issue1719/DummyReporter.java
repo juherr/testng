@@ -14,6 +14,7 @@ public class DummyReporter implements IReporter {
   private final Set<ITestResult> success = Sets.newHashSet();
   private final Set<ITestResult> failedWithinSuccessPercentage = Sets.newHashSet();
 
+  @Override
   public void generateReport(
       List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
     suites.forEach(

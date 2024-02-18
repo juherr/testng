@@ -33,13 +33,10 @@ public class Pair<A, B> {
     if (this == obj) {
       return true;
     }
-    if (obj == null) {
+    if (!(obj instanceof Pair)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final Pair other = (Pair) obj;
+    final Pair<?, ?> other = (Pair<?, ?>) obj;
     if (first == null) {
       if (other.first != null) {
         return false;
@@ -48,13 +45,9 @@ public class Pair<A, B> {
       return false;
     }
     if (second == null) {
-      if (other.second != null) {
-        return false;
-      }
-    } else if (!second.equals(other.second)) {
-      return false;
+      return other.second == null;
     }
-    return true;
+    return second.equals(other.second);
   }
 
   public static <A, B> Pair<A, B> create(A first, B second) {

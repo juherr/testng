@@ -196,8 +196,4 @@ public class TestAnnotation extends TestOrConfiguration implements ITestAnnotati
   public void setAttributes(CustomAttribute[] attributes) {
     m_attributes = attributes;
   }
-
-  private static boolean isRetryAnalyzerNotTestNGInjected(Class<? extends IRetryAnalyzer> c) {
-    return !DisabledRetryAnalyzer.class.equals(c);
-  }
 }

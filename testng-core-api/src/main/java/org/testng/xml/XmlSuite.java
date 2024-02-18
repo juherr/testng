@@ -199,12 +199,12 @@ public class XmlSuite implements Cloneable {
     this.parsed = parsed;
   }
 
-  /** @return - <code>true</code> if the current {@link XmlSuite} has already been parsed. */
+  /** Returns <code>true</code> if the current {@link XmlSuite} has already been parsed. */
   public boolean isParsed() {
     return parsed;
   }
 
-  /** @return The fileName. */
+  /** Returns the fileName. */
   public String getFileName() {
     return m_fileName;
   }
@@ -216,8 +216,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the parallel mode.
-   *
-   * @return The parallel mode.
    */
   public ParallelMode getParallel() {
     return m_parallel;
@@ -283,8 +281,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the configuration failure policy.
-   *
-   * @return The configuration failure policy.
    */
   public FailurePolicy getConfigFailurePolicy() {
     return m_configFailurePolicy;
@@ -292,8 +288,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the verbose.
-   *
-   * @return The verbose.
    */
   public Integer getVerbose() {
     return m_verbose != null ? m_verbose : RuntimeBehavior.getDefaultVerboseLevel();
@@ -310,8 +304,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the name.
-   *
-   * @return The name.
    */
   public String getName() {
     return m_name;
@@ -331,8 +323,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the test.
-   *
-   * @return The test.
    */
   public String getTest() {
     return m_test;
@@ -340,8 +330,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the tests.
-   *
-   * @return The tests.
    */
   public List<XmlTest> getTests() {
     return m_tests;
@@ -354,8 +342,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the method selectors.
-   *
-   * @return The method selectors.
    */
   public List<XmlMethodSelector> getMethodSelectors() {
     if (m_xmlMethodSelectors != null) {
@@ -408,7 +394,7 @@ public class XmlSuite implements Cloneable {
   }
 
   /**
-   * @return the parameters that apply to tests in this suite.<br>
+   * Returns the parameters that apply to tests in this suite.<br>
    *     The set of parameters for a suite is appended with parameters from the parent suite. Also,
    *     parameters from this suite override the same named parameters from the parent suite.
    */
@@ -416,7 +402,7 @@ public class XmlSuite implements Cloneable {
     return m_parameters;
   }
 
-  /** @return The parameters defined in this suite and all its XmlTests. */
+  /** Returns the parameters defined in this suite and all its XmlTests. */
   public Map<String, String> getAllParameters() {
     Map<String, String> result = Maps.newHashMap();
     result.putAll(m_parameters);
@@ -432,13 +418,12 @@ public class XmlSuite implements Cloneable {
    * Returns the parameter defined in this suite only.
    *
    * @param name The parameter name.
-   * @return The parameter defined in this suite only.
    */
   public String getParameter(String name) {
     return m_parameters.get(name);
   }
 
-  /** @return The threadCount. */
+  /** Returns the threadCount. */
   public int getThreadCount() {
     return m_threadCount;
   }
@@ -471,8 +456,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the XML packages.
-   *
-   * @return The XML packages.
    */
   public List<XmlPackage> getXmlPackages() {
     return m_xmlPackages;
@@ -492,12 +475,12 @@ public class XmlSuite implements Cloneable {
     setXmlPackages(packages);
   }
 
-  /** @return A String representation of this XML suite. */
+  /** Returns a String representation of this XML suite. */
   public String toXml() {
     return XmlWeaver.asXml(this);
   }
 
-  /** @return - The list of listener names that are local to the current &lt;suite&gt;. */
+  /** Returns the list of listener names that are local to the current &lt;suite&gt;. */
   public List<String> getLocalListeners() {
     return m_listeners;
   }
@@ -587,8 +570,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the timeout.
-   *
-   * @return The timeout.
    */
   public String getTimeOut() {
     return m_timeOut;
@@ -622,8 +603,6 @@ public class XmlSuite implements Cloneable {
 
   /**
    * Returns the suite files.
-   *
-   * @return The suite files.
    */
   public List<String> getSuiteFiles() {
     return m_suiteFiles;
@@ -793,7 +772,7 @@ public class XmlSuite implements Cloneable {
   }
 
   /**
-   * @return Returns the includedGroups. Note: do not modify the returned value, use {@link
+   * Returns the includedGroups. Note: do not modify the returned value, use {@link
    *     #addIncludedGroup(String)}.
    */
   public List<String> getIncludedGroups() {
@@ -838,7 +817,7 @@ public class XmlSuite implements Cloneable {
   }
 
   /**
-   * @return Returns the excludedGroups. Note: do not modify the returned value, use {@link
+   * Returns the excludedGroups. Note: do not modify the returned value, use {@link
    *     #addExcludedGroup(String)}.
    */
   public List<String> getExcludedGroups() {

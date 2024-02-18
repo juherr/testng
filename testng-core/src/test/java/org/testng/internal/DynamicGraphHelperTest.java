@@ -104,8 +104,8 @@ public class DynamicGraphHelperTest extends SimpleBaseTest {
     XmlTest xmlTest = createXmlTest("suite", "test", classes);
     xmlTest.setGroupByInstances(true);
     ITestNGMethod[] methods = methods(ITestAnnotation.class, xmlTest, classes);
-    List<ITestNGMethod> methodList = Lists.newLinkedList();
-    List<FactoryTestClassSample> objects = Lists.newLinkedList();
+    List<ITestNGMethod> methodList = Lists.newArrayList();
+    List<FactoryTestClassSample> objects = Lists.newArrayList();
     objects.add(new FactoryTestClassSample("one"));
     objects.add(new FactoryTestClassSample("two"));
     for (FactoryTestClassSample object : objects) {
@@ -123,7 +123,7 @@ public class DynamicGraphHelperTest extends SimpleBaseTest {
     DynamicGraph<ITestNGMethod> graph = DynamicGraphHelper.createDynamicGraph(allMethods, xmlTest);
     Map<ITestNGMethod, Integer> edges = searchForMethod("testMethod", graph, "two");
     Set<String> actualObjectIds = Sets.newHashSet();
-    List<String> actualMethodNames = Lists.newLinkedList();
+    List<String> actualMethodNames = Lists.newArrayList();
     for (ITestNGMethod to : edges.keySet()) {
       actualObjectIds.add(to.getInstance().toString());
       actualMethodNames.add(to.getMethodName());
@@ -170,7 +170,7 @@ public class DynamicGraphHelperTest extends SimpleBaseTest {
   }
 
   private static List<String> extractDestinationInfoFromEdge(Map<ITestNGMethod, Integer> edges) {
-    List<String> destinations = Lists.newLinkedList();
+    List<String> destinations = Lists.newArrayList();
     for (ITestNGMethod to : edges.keySet()) {
       destinations.add(to.getMethodName());
     }

@@ -64,18 +64,6 @@ public interface ITestAnnotation extends ITestOrConfiguration, IDataProvidable {
 
   void setSingleThreaded(boolean f);
 
-  String getDataProvider();
-
-  void setDataProvider(String v);
-
-  Class<?> getDataProviderClass();
-
-  void setDataProviderClass(Class<?> v);
-
-  String getDataProviderDynamicClass();
-
-  void setDataProviderDynamicClass(String v);
-
   void setRetryAnalyzer(Class<? extends IRetryAnalyzer> c);
 
   Class<? extends IRetryAnalyzer> getRetryAnalyzerClass();
