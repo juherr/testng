@@ -13,7 +13,7 @@ public class ParameterInjectionSample {
   @Test(retryAnalyzer = LocalRetry.class)
   @Parameters({"counter"})
   public void testMethod(int paramCounter) {
-    assertThat(paramCounter > 0).isTrue();
+    assertThat(paramCounter).isGreaterThan(0);
     if (counter.incrementAndGet() != 3) {
       fail();
     }

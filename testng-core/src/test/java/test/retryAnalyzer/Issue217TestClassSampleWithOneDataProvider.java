@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class Issue217TestClassSampleWithOneDataProvider {
   @Test(dataProvider = "dp")
   public void testMethod(int i) {
-    assertThat(i > 0).isTrue();
+    assertThat(i).isGreaterThan(0);
   }
 
   @DataProvider(name = "dp")

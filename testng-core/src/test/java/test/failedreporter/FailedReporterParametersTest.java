@@ -127,9 +127,9 @@ public class FailedReporterParametersTest extends SimpleBaseTest {
       List<String> resultLines = Lists.newArrayList();
       grep(failed, String.format(expectedFormat, expectedKey, expectedKey + "Value"), resultLines);
       int expectedSize = 1;
-      assertThat(resultLines.size())
+      assertThat(resultLines)
           .withFailMessage("Mismatch param:" + expectedKey)
-          .isEqualTo(expectedSize);
+          .hasSize(expectedSize);
     }
   }
 

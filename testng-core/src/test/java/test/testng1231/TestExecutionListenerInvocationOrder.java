@@ -23,7 +23,7 @@ public class TestExecutionListenerInvocationOrder extends SimpleBaseTest {
     tng.addListener((ITestNGListener) listener);
     tng.run();
     List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5, 6);
-    assertThat(TestListenerFor1231.order).isEqualTo(expected);
+    assertThat(TestListenerFor1231.order).containsExactlyElementsOf(expected);
   }
 
   public static class TestListenerFor1231

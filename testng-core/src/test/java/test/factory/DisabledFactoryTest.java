@@ -18,8 +18,8 @@ public class DisabledFactoryTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(tla.getPassedTests().size()).isEqualTo(0);
-    assertThat(tla.getSkippedTests().size()).isEqualTo(0);
-    assertThat(tla.getFailedTests().size()).isEqualTo(0);
+    assertThat(tla.getPassedTests()).hasSize(0);
+    assertThat(tla.getSkippedTests()).hasSize(0);
+    assertThat(tla.getFailedTests()).hasSize(0);
   }
 }

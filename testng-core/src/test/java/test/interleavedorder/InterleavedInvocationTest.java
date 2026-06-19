@@ -38,7 +38,7 @@ public class InterleavedInvocationTest extends BaseTest {
     testng.addListener(tla);
     testng.run();
 
-    assertThat(LOG.size()).withFailMessage(LOG.toString()).isEqualTo(8);
+    assertThat(LOG).withFailMessage(LOG.toString()).hasSize(8);
     int number1 = "beforeTestChild1Class".equals(LOG.get(0)) ? 1 : 2;
     int number2 = number1 == 1 ? 2 : 1;
     verifyInvocation(number1, LOG, 0);

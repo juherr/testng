@@ -141,13 +141,12 @@ public class TestMethodMatcher {
       log.debug("An item is \"" + item + "\"");
     }
     assertThat(i).isEqualTo(3);
-    assertThat(b).isNotNull();
     assertThat(b).isTrue();
     assertThat(s1).isNotNull();
-    assertThat(s1.length).isEqualTo(1);
+    assertThat(s1.length).isOne();
     assertThat(s1[0]).isEqualTo("three");
     assertThat(strings).isNotNull();
-    assertThat(strings.length).isEqualTo(1);
+    assertThat(strings.length).isOne();
     assertThat(strings[0]).isEqualTo("four");
   }
 
@@ -178,11 +177,11 @@ public class TestMethodMatcher {
       log.debug("An item is \"" + item + "\"");
     }
     assertThat(myTestContext).isNotNull();
-    assertThat((myTestContext instanceof TestContextJustForTesting)).isTrue();
+    assertThat(myTestContext).isInstanceOf(TestContextJustForTesting.class);
     assertThat(myTestResult).isNotNull();
-    assertThat((myTestResult instanceof TestResultJustForTesting)).isTrue();
+    assertThat(myTestResult).isInstanceOf(TestResultJustForTesting.class);
     assertThat(myXmlTest).isNotNull();
-    assertThat((myXmlTest instanceof XmlTestJustForTesting)).isTrue();
+    assertThat(myXmlTest).isInstanceOf(XmlTestJustForTesting.class);
     assertThat(currentTestMethod).isNotNull();
     assertThat("potpourri0").isEqualTo(currentTestMethod.getName());
     assertThat(myMethod1).isNotNull();
@@ -190,13 +189,12 @@ public class TestMethodMatcher {
     assertThat(myMethod2).isNotNull();
     assertThat("badTestIssue122").isEqualTo(myMethod2.getName());
     assertThat(i).isEqualTo(3);
-    assertThat(b).isNotNull();
     assertThat(b).isTrue();
     assertThat(s1).isNotNull();
-    assertThat(s1.length).isEqualTo(1);
+    assertThat(s1.length).isOne();
     assertThat(s1[0]).isEqualTo("three");
     assertThat(strings).isNotNull();
-    assertThat(strings.length).isEqualTo(1);
+    assertThat(strings.length).isOne();
     assertThat(strings[0]).isEqualTo("four");
   }
 
@@ -227,11 +225,11 @@ public class TestMethodMatcher {
       log.debug("An item is \"" + item + "\"");
     }
     assertThat(myTestContext).isNotNull();
-    assertThat((myTestContext instanceof TestContextJustForTesting)).isTrue();
+    assertThat(myTestContext).isInstanceOf(TestContextJustForTesting.class);
     assertThat(myTestResult).isNotNull();
-    assertThat((myTestResult instanceof TestResultJustForTesting)).isTrue();
+    assertThat(myTestResult).isInstanceOf(TestResultJustForTesting.class);
     assertThat(myXmlTest).isNotNull();
-    assertThat((myXmlTest instanceof XmlTestJustForTesting)).isTrue();
+    assertThat(myXmlTest).isInstanceOf(XmlTestJustForTesting.class);
     assertThat(currentTestMethod).isNotNull();
     assertThat("potpourri1").isEqualTo(currentTestMethod.getName());
     assertThat(myMethod1).isNotNull();
@@ -239,13 +237,12 @@ public class TestMethodMatcher {
     assertThat(myMethod2).isNotNull();
     assertThat("badTestIssue122").isEqualTo(myMethod2.getName());
     assertThat(i).isEqualTo(3);
-    assertThat(b).isNotNull();
     assertThat(b).isTrue();
     assertThat(s1).isNotNull();
-    assertThat(s1.length).isEqualTo(1);
+    assertThat(s1.length).isOne();
     assertThat(s1[0]).isEqualTo("three");
     assertThat(strings).isNotNull();
-    assertThat(strings.length).isEqualTo(1);
+    assertThat(strings.length).isOne();
     assertThat(strings[0]).isEqualTo("four");
   }
 }

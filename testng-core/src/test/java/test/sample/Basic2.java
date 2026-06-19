@@ -30,6 +30,6 @@ public class Basic2 {
         .isTrue();
     assertThat(m_afterClass)
         .withFailMessage("After class should have been called exactly once, not " + m_afterClass)
-        .isEqualTo(1);
+        .isOne();
   }
 }

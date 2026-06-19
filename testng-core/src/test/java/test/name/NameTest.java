@@ -22,9 +22,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
     assertThat(result.getName()).isEqualTo("NAME");
@@ -39,9 +39,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
     assertThat(result.getName()).isEqualTo("NAME");
@@ -56,9 +56,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
     assertThat(result.getName()).isEqualTo("NAME");
@@ -73,9 +73,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
     assertThat(result.getName()).isEqualTo("NAME");
@@ -90,9 +90,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
     assertThat(result.getName()).isEqualTo("test");
@@ -107,9 +107,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
     assertThat(result.getName()).isEqualTo("test");
@@ -124,9 +124,9 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(5);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(5);
     List<String> testNames =
         new ArrayList<>(Arrays.asList("test1", "test2", "test3", "test4", "test5"));
     for (ITestResult testResult : adapter.getPassedTests()) {
@@ -134,7 +134,7 @@ public class NameTest extends SimpleBaseTest {
           .withFailMessage("Duplicate test names " + getNames(adapter.getPassedTests()))
           .isTrue();
     }
-    assertThat(testNames).isEqualTo(Collections.emptyList());
+    assertThat(testNames).containsExactlyElementsOf(Collections.emptyList());
   }
 
   private static List<String> getNames(List<ITestResult> results) {
@@ -153,11 +153,11 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(listener.getNames().size()).isEqualTo(1);
+    assertThat(listener.getNames()).hasSize(1);
     assertThat(listener.getNames().get(0)).isEqualTo("test");
 
     // testName should be ignored if not specified
-    assertThat(listener.getTestNames().size()).isEqualTo(1);
+    assertThat(listener.getTestNames()).hasSize(1);
     assertThat(listener.getTestNames().get(0)).isNull();
   }
 
@@ -169,13 +169,13 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
-    assertThat(result.getName()).isEqualTo("");
-    assertThat(result.getTestName()).isEqualTo("");
+    assertThat(result.getName()).isEmpty();
+    assertThat(result.getTestName()).isEmpty();
   }
 
   @Test
@@ -186,12 +186,12 @@ public class NameTest extends SimpleBaseTest {
 
     tng.run();
 
-    assertThat(adapter.getFailedTests().isEmpty()).isTrue();
-    assertThat(adapter.getSkippedTests().isEmpty()).isTrue();
-    assertThat(adapter.getPassedTests().size()).isEqualTo(1);
+    assertThat(adapter.getFailedTests()).isEmpty();
+    assertThat(adapter.getSkippedTests()).isEmpty();
+    assertThat(adapter.getPassedTests()).hasSize(1);
     ITestResult result = adapter.getPassedTests().get(0);
     assertThat(result.getMethod().getMethodName()).isEqualTo("test");
-    assertThat(result.getName()).isEqualTo("");
-    assertThat(result.getTestName()).isEqualTo("");
+    assertThat(result.getName()).isEmpty();
+    assertThat(result.getTestName()).isEmpty();
   }
 }

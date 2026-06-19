@@ -88,7 +88,7 @@ public class ConfigurationListenerTest extends SimpleBaseTest {
     tng.run();
 
     assertThat(listener.throwable).isNotNull();
-    assertThat((listener.throwable instanceof SkipException)).isTrue();
+    assertThat(listener.throwable).isInstanceOf(SkipException.class);
     assertThat(listener.throwable.getMessage()).isEqualTo("Skip");
   }
 }

@@ -46,13 +46,13 @@ public class ReturnValueTest extends SimpleBaseTest {
     tng.run();
 
     if (allowed) {
-      assertThat(tla.getFailedTests().size()).isEqualTo(0);
-      assertThat(tla.getSkippedTests().size()).isEqualTo(0);
+      assertThat(tla.getFailedTests()).hasSize(0);
+      assertThat(tla.getSkippedTests()).hasSize(0);
       assertTestResultsEqual(tla.getPassedTests(), Collections.singletonList("shouldRun"));
     } else {
-      assertThat(tla.getFailedTests().size()).isEqualTo(0);
-      assertThat(tla.getPassedTests().size()).isEqualTo(0);
-      assertThat(tla.getSkippedTests().size()).isEqualTo(0);
+      assertThat(tla.getFailedTests()).hasSize(0);
+      assertThat(tla.getPassedTests()).hasSize(0);
+      assertThat(tla.getSkippedTests()).hasSize(0);
     }
   }
 }

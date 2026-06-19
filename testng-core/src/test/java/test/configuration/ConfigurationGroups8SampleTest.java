@@ -44,6 +44,6 @@ public class ConfigurationGroups8SampleTest {
 
   @Test(dependsOnGroups = "A", groups = "B")
   public void verify() {
-    assertThat(Arrays.asList("1", "a", "1", "a")).isEqualTo(m_log);
+    assertThat(Arrays.asList("1", "a", "1", "a")).containsExactlyElementsOf(m_log);
   }
 }

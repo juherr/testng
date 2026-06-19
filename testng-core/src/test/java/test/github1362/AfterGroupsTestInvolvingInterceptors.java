@@ -36,9 +36,9 @@ public class AfterGroupsTestInvolvingInterceptors extends SimpleBaseTest {
     }
     testng.run();
     for (String each : listener.getInvokedMethodNames()) {
-      assertThat(expected.contains(each))
+      assertThat(expected)
           .withFailMessage(each + " not found in expected invocation methods " + expected)
-          .isTrue();
+          .contains(each);
     }
   }
 }

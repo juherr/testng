@@ -79,7 +79,7 @@ public class ReflectionRecipesTest {
         assertThat(provider).isNotNull();
         final Method providerMethod = ExactMatchTest.class.getMethod(provider, int.class);
         final Object out = providerMethod.invoke(ExactMatchTest.class, flag);
-        assertThat((out instanceof Object[][])).isTrue();
+        assertThat(out).isInstanceOf(Object[][].class);
         log.debug(method.getName() + ", " + out);
         objects.add(new Object[] {out, method});
       }
@@ -103,7 +103,7 @@ public class ReflectionRecipesTest {
         assertThat(provider).isNotNull();
         final Method providerMethod = MatchArrayEndingTest.class.getMethod(provider, int.class);
         final Object out = providerMethod.invoke(MatchArrayEndingTest.class, flag);
-        assertThat((out instanceof Object[][])).isTrue();
+        assertThat(out).isInstanceOf(Object[][].class);
         log.debug(method.getName() + ", " + out);
         objects.add(new Object[] {out, method});
       }
@@ -136,9 +136,9 @@ public class ReflectionRecipesTest {
         assertThat(expect).isNotNull();
         assertThat(expect.length).isEqualTo(2);
         assertThat(expect[0]).isNotNull();
-        assertThat((expect[0] instanceof Object[])).isTrue();
+        assertThat(expect[0]).isInstanceOf(Object[].class);
         assertThat(expect[1]).isNotNull();
-        assertThat((expect[1] instanceof Boolean)).isTrue();
+        assertThat(expect[1]).isInstanceOf(Boolean.class);
         assertThat(ReflectionRecipes.matchArrayEnding(filteredParameters, (Object[]) expect[0]))
             .isEqualTo(expect[1]);
       }
@@ -158,9 +158,9 @@ public class ReflectionRecipesTest {
         assertThat(expect).isNotNull();
         assertThat(expect.length).isEqualTo(2);
         assertThat(expect[0]).isNotNull();
-        assertThat((expect[0] instanceof Object[])).isTrue();
+        assertThat(expect[0]).isInstanceOf(Object[].class);
         assertThat(expect[1]).isNotNull();
-        assertThat((expect[1] instanceof Boolean)).isTrue();
+        assertThat(expect[1]).isInstanceOf(Boolean.class);
         assertThat(ReflectionRecipes.exactMatch(filteredParameters, (Object[]) expect[0]))
             .isEqualTo(expect[1]);
       }

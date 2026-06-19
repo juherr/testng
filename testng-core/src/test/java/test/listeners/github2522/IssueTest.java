@@ -19,8 +19,7 @@ public class IssueTest extends SimpleBaseTest {
         .isEqualTo(
             TestListener.beforeInvocation
                 .get("test.listeners.github2522.FirstTestSamplefirstMethod")
-                .intValue());
-    assertThat(ITestResult.STARTED)
+                .intValue())
         .isEqualTo(
             TestListener.beforeInvocation
                 .get("test.listeners.github2522.FirstTestSamplesecondMethod")
@@ -39,8 +38,7 @@ public class IssueTest extends SimpleBaseTest {
         .isEqualTo(
             TestListener.beforeInvocation
                 .get("test.listeners.github2522.SecondTestSamplesecondMethod")
-                .intValue());
-    assertThat(ITestResult.SKIP)
+                .intValue())
         .isEqualTo(
             TestListener.beforeInvocation
                 .get("test.listeners.github2522.SecondTestSamplethirdMethod")
@@ -60,18 +58,15 @@ public class IssueTest extends SimpleBaseTest {
         .isEqualTo(
             TestListener.afterInvocation
                 .get("test.listeners.github2522.FirstTestSamplethirdMethod")
-                .intValue());
-    assertThat(ITestResult.SKIP)
+                .intValue())
         .isEqualTo(
             TestListener.afterInvocation
                 .get("test.listeners.github2522.SecondTestSamplefirstMethod")
-                .intValue());
-    assertThat(ITestResult.SKIP)
+                .intValue())
         .isEqualTo(
             TestListener.afterInvocation
                 .get("test.listeners.github2522.SecondTestSamplesecondMethod")
-                .intValue());
-    assertThat(ITestResult.SKIP)
+                .intValue())
         .isEqualTo(
             TestListener.afterInvocation
                 .get("test.listeners.github2522.SecondTestSamplethirdMethod")

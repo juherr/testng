@@ -15,15 +15,15 @@ public abstract class ConfigurationBaseTest extends SimpleBaseTest {
     tng.addListener((ITestNGListener) tla);
     tng.run();
 
-    assertThat(tla.getConfigurationFailures().size())
+    assertThat(tla.getConfigurationFailures())
         .withFailMessage(getFailedResultMessage(tla.getConfigurationFailures()))
-        .isEqualTo(0);
-    assertThat(tla.getFailedTests().size())
+        .hasSize(0);
+    assertThat(tla.getFailedTests())
         .withFailMessage(getFailedResultMessage(tla.getFailedTests()))
-        .isEqualTo(0);
-    assertThat(tla.getSkippedTests().size())
+        .hasSize(0);
+    assertThat(tla.getSkippedTests())
         .withFailMessage(getFailedResultMessage(tla.getSkippedTests()))
-        .isEqualTo(0);
-    assertThat(tla.getPassedTests().isEmpty()).withFailMessage("All tests should pass").isFalse();
+        .hasSize(0);
+    assertThat(tla.getPassedTests()).withFailMessage("All tests should pass").isNotEmpty();
   }
 }

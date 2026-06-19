@@ -11,7 +11,7 @@ public class Issue217TestClassSample {
 
   @Test(dataProvider = "dp")
   public void testMethod(int i) {
-    assertThat(i > 0).isTrue();
+    assertThat(i).isGreaterThan(0);
   }
 
   @DataProvider(name = "dp")

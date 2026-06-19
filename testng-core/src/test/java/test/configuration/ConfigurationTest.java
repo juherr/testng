@@ -39,7 +39,7 @@ public class ConfigurationTest extends ConfigurationBaseTest {
   @Test
   public void testSuite() {
     testConfiguration(SuiteTestSample.class);
-    assertThat(Arrays.asList(1, 2, 3, 4, 5)).isEqualTo(SuiteTestSample.m_order);
+    assertThat(Arrays.asList(1, 2, 3, 4, 5)).containsExactlyElementsOf(SuiteTestSample.m_order);
   }
 
   @Test
@@ -47,7 +47,7 @@ public class ConfigurationTest extends ConfigurationBaseTest {
     TestNG testNG = create(SuiteRunnerIssueTestSample.class);
     testNG.run();
 
-    assertThat(testNG.getStatus()).isEqualTo(0);
+    assertThat(testNG.getStatus()).isZero();
   }
 
   @Test(description = "GITHUB-2726")
